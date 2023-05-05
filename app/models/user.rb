@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :password, length: {minimum: 6}
+  has_many :topics
 
   private
   def generatePublicId
