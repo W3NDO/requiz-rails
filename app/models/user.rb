@@ -15,4 +15,5 @@ class User < ApplicationRecord
     publicId = SecureRandom.hex(3)
     self.public_id = publicId
   end
+
 end

@@ -6,7 +6,18 @@
 
     <div class="field flex flex-col items-center mb-5">
       <%= f.label :email %> 
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "rounded" %>
+      <%= f.email_field :email, placeholder: "email@example.com", autofocus: true, autocomplete: "email", class: "rounded" %>
+    </div>
+
+    <div class="field flex flex-col items-center mb-5">
+      <%= f.label :full_name %> 
+      <%= f.text_field :full_name, placeholder: "Your Name", autofocus: true, class: "rounded" %>
+    </div>
+
+    <div class="field flex flex-col items-center mb-5">
+      <%= f.label :username %>
+      <em>(only alphanumeric characters[a-z0-9] and underscores(_) allowed.)</em> 
+      <%= f.text_field :handle, placeholder: "example_username" , autofocus: true, class: "rounded" %>
     </div>
 
     <div class="field flex flex-col items-center mb-5">
