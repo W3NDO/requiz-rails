@@ -1,22 +1,17 @@
-<%= form_with(model: topic, class: "contents") do |form| %>
-  <% if topic.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-      <h2><%= pluralize(topic.errors.count, "error") %> prohibited this topic from being saved:</h2>
+<div class ="grid place-items-center border py-2 px-5 rounded border-gray-300 items-center shadow-md shadow-gray-400" >
+  <h2 class="mb-5 text-lg font-bold">New Topic</h2>
 
-      <ul>
-        <% topic.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+  <form>
+    
+    <div class="field flex flex-col items-center mb-5">
+      <%= label_tag :topic_name %>
+      <%= text_field(:topic, :topic_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
     </div>
-  <% end %>
 
-  <div class="my-5">
-    <%= form.label :topic_name %>
-    <%= form.text_field :topic_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
+    <div class="actions flex justify-around">
+      <%= button_tag "Create New Topic", class: "bg-blue-500 p-2 rounded m-2 text-white", data: { reflex: "click->HomeReflex#save_new_object", reflex_serialize_form: true } %>
+    </div>
 
-  <div class="inline">
-    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-  </div>
-<% end %>
+  </form>
+    
+</div>

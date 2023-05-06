@@ -1,2 +1,20 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div class="w-full h-full grid grid-cols-6">
+    <aside class="m-2 col-start-1 col-end-3 grid grid-rows-6">
+        <div class="row-start-1 row-end-2 border border-gray-500 mb-1 flex flex-row-reverse p-2 rounded-md shadow-md shadow-gray-500">
+            <span class="text-right font-semibold"><%= "@#{current_user.handle}##{current_user.public_id}" %> </span>
+        </div>
+
+        <div class="row-start-2 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 mt-1 p-2">
+            <div class="flex justify-center">
+                <span class="font-bold p-1"> My Topics </span>
+            </div>
+            <div class="overflow-y-scroll max-h-72" id="topics_bar">
+                <%= render(partial: "home/topics_bar", locals: {topics: @topics}) %>
+            </div>
+        </div>
+    </aside>
+
+    <div id="main_container" class="border border-gray-500 rounded-md shadow-md shadow-gray-500 m-2 col-start-3 col-end-7">
+
+    </div>
+</div>
