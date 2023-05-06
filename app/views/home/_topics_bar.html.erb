@@ -1,0 +1,19 @@
+<% unless current_user.topics.empty? %>
+    <% topics.each do |topic| %>
+        <div class="border border-gray-400 p-1 my-2 bg-blue-500 rounded">
+            <span class="text-white font-semibold flex justify-around"> <%= topic.topic_name  %> </span> <!-- TODO will trigger an SR action -->
+        </div>
+    <% end %>
+    <div class="p-1 my-2 flex justify-center">
+        <%= button_tag(type: "button", data: { reflex:"click->HomeReflex#new_object_view", partial_path: "topics/form", model: "topic" }, class: "p-2 bg-blue-500 rounded text-center") do %>
+            <span class="text-white font-semibold flex justify-around"> + Add a new topic </span> 
+        <% end %> 
+    </div>
+<% else %> 
+    <span class="font-semibold text-justify "> Hey there! you don't have any topics yet. Let's get you set up with one by clicking the button below </span>
+    <div class="p-1 my-2 flex justify-center">
+        <%= button_tag(type: "button", data: { reflex:"click->HomeReflex#new_object_view", partial_path: "topics/form", model: "topic" }, class: "p-2 bg-blue-500 rounded text-center") do %>
+            <span class="text-white font-semibold flex justify-around"> + Add a new topic </span> 
+        <% end %> 
+    </div>
+<% end %> 

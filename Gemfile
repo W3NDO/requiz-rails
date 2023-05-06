@@ -78,3 +78,9 @@ gem "devise", "~> 4.9"
 gem "tailwindcss-rails", "~> 2.0"
 
 gem "font-awesome-sass", "~> 6.4.0"
+
+gem "stimulus_reflex", "= 3.5.0.rc2"
+
+gem "action-cable-redis-backport", "~> 1"
+
+gem "redis-session-store", "~> 0.11.5"
