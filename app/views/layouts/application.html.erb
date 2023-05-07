@@ -13,8 +13,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class=" mx-auto m-5 px-5 grid place-items-center font-serif min-h-screen h-5/6">
+  <body class="sm:overflow-scroll md:overflow-scroll overflow-hidden">
+    <main class="mx-auto m-5 px-5 grid place-items-center font-serif w-full h-full">
       <%= yield %>
     </main>
   </body>
