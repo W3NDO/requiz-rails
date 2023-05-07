@@ -66,6 +66,17 @@ export default class extends Controller {
 
   afterReflex (element, reflex, noop, id) {
     // document.body.classList.remove('wait')
+
+    // if($("#on_screen_notifications_stimulus_origin").length){
+    //   // on screen notifications created by SR will create a span matching this id
+    //   // this way we can animate in/out using javascript here
+
+    //   $('#on_screen_notifications_inner').fadeIn('slow');
+    //   setTimeout(function() {
+    //       $('#on_screen_notifications_inner').fadeOut('fast');
+    //   }, 3000);
+    //   $("#on_screen_notifications_stimulus_origin").remove();
+    // }
   }
 
   finalizeReflex (element, reflex, noop, id) {

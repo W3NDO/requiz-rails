@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :notes
+  # resources :notes
   resource :example, constraints: -> { Rails.env.development? }
   get 'home/index'
   devise_for :users, :controllers => { registrations: 'users/registrations' }

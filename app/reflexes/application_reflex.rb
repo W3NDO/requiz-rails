@@ -25,4 +25,12 @@ class ApplicationReflex < StimulusReflex::Reflex
   # For code examples, considerations and caveats, see:
   # https://docs.stimulusreflex.com/guide/patterns#internationalization
   delegate :current_user, to: :connection
+
+  def show_notification(message, is_error=false)
+    morph "#notification_container", render(partial: "shared/basic_notification", locals: {message: message, is_error: is_error}) 
+  end
+
+  def yet_to_implement
+    show_notification("You caught me. This is yet to be implemented", is_error=true)
+  end
 end

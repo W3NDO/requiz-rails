@@ -1,15 +1,16 @@
 <div class="grid place-items-center border py-2 px-5 rounded border-gray-300 items-center shadow-md shadow-gray-400 h-full" >
-  <div class="field flex flex-col items-center mb-5">
-    <span> <%= topic.topic_name.titleize %> </span>
+  <div class="field flex items-center mb-5 w-full">
+    <button type="button" data-reflex="click->Application#yet_to_implement" class="mx-2 border rounded-lg font-semibold px-2 py-1"> <%= icon("fa-solid", "pen") %> </button>
+    <span class="font-semibold mx-2 p-2"> <%= topic.topic_name.titleize %> </span>
   </div>
 
-  <%= form_with(model: note, class: "contents h-full") do |form| %>
+  <form class="contents h-full">
     <div class="field flex flex-col items-center mb-5 h-full">
-      <%= form.rich_text_area :content, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full h-full" %>
+      <%= rich_text_area_tag :content, '', class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full h-full" %>
     </div>
 
     <div class="actions flex justify-around">
-        <%= button_tag "Save Note", class: "bg-blue-500 p-2 rounded m-2 text-white", data: { reflex: "click->HomeReflex#save_new_object", reflex_serialize_form: true } %>
+        <%= button_tag "Save Note", class: "bg-blue-500 p-2 rounded m-2 text-white", data: { reflex: "click->Application#yet_to_implement", reflex_serialize_form: true } %>
       </div>
-  <% end %>
+  </form>
 </div>

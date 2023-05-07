@@ -1,26 +1,35 @@
-<div class="w-full h-full grid grid-cols-6">
-    <aside class="m-2 col-start-1 col-end-3 grid grid-rows-6">
-        <div class="row-start-1 row-end-2 border border-gray-500 mb-1 flex flex-row-reverse p-2 rounded-md shadow-md shadow-gray-500">
-            <span class="text-right font-semibold"><%= "@#{current_user.handle}##{current_user.public_id}" %> </span>
+<div class="w-full h-full max-h-90 grid grid-cols-6">
+    <aside class="m-2 col-start-1 col-end-3 grid grid-rows-6 overflow-y-scroll max-h">
+        <div class="row-start-1 row-end-2 border border-gray-500 mb-1 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
+            <button type="button" class="p-2 flex items-center border-white hover:border-gray-700 rounded-md hover:shadow-md" data-reflex="click->Application#yet_to_implement">
+                <span class="font-bold mx-3 text-lg"> <%= icon("fa-regular", "user") %> </span>
+                <span class=" font-semibold"><%= "@#{current_user.handle}##{current_user.public_id}" %> </span>
+            </button>
         </div>
 
-        <div class="row-start-2 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 mt-1 p-2">
+        <div class="row-start-2 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 mt-1 p-2 overflow-y-scroll">
             <div class="flex justify-between border-b-2 border-gray-500 p-2">
                 <span class="font-bold p-1"> My Topics </span>
                 <%= button_tag(type: "button", data: { reflex:"click->HomeReflex#new_object_view", partial_path: "topics/form", model: "topic" }, class: "p-1 bg-blue-500 rounded text-center") do %>
                     <span class="text-white font-semibold flex justify-around"> + Add a new topic </span> 
                 <% end %> 
             </div>
-            <div class="overflow-y-scroll max-h-5/6" id="topics_bar">
+            
+            <div class="overflow-y-scroll max-h-80 " id="topics_bar">
                 <%= render(partial: "home/topics_bar", locals: {topics: @topics}) %>
             </div>
+
             <div id="currentFocus">
                 <input type="hidden" value="" />
             </div>
         </div>
     </aside>
 
-    <div id="main_container" class="border border-gray-500 rounded-md shadow-md shadow-gray-500 m-2 col-start-3 col-end-7">
+    <div id="main_container" class="border border-gray-500 rounded-md shadow-md shadow-gray-500 m-2 col-start-3 col-end-7 max-h-full">
+    </div>
 
+    <div class="flex justify-between w-full col-start-1 col-end-7">
+        <%= button_tag "test normal dialog", type: "button", data: { reflex: "click->Shared::NotificationModalReflex#show_dialog",  }, class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
+        <%= button_tag "test confirm dialog", type: "button", data: { reflex: "click->Shared::NotificationModalReflex#show_confirmation_dialog", }, class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
     </div>
 </div>
