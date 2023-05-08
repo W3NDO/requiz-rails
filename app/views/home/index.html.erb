@@ -29,7 +29,16 @@
     </div>
 
     <div class="flex justify-between w-full col-start-1 col-end-7">
-        <%= button_tag "test normal dialog", type: "button", data: { reflex: "click->Shared::NotificationModalReflex#show_dialog",  }, class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
+        <%= button_tag "test normal dialog", 
+            type: "button", 
+            data: { 
+                reflex: "click->Shared::NotificationModalReflex#show_dialog", 
+                partial_path: "topics/form", 
+                sub_locals: { 
+                    model: "topic" 
+                    } 
+                }, 
+            class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
         <%= button_tag "test confirm dialog", type: "button", data: { reflex: "click->Shared::NotificationModalReflex#show_confirmation_dialog", }, class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
     </div>
 </div>

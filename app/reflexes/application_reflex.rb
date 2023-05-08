@@ -30,6 +30,7 @@ class ApplicationReflex < StimulusReflex::Reflex
     morph "#notification_container", render(partial: "shared/basic_notification", locals: {message: message, is_error: is_error}) 
   end
 
+  
   def yet_to_implement
     show_notification("You caught me. This is yet to be implemented", is_error=true)
   end

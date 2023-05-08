@@ -23,6 +23,7 @@ class HomeReflex < ApplicationReflex
 
     if topic.save
       show_notification("Topic Saved")
+
       morph "#topics_bar", render(partial: "home/topics_bar", locals:{ topics: current_user.topics})
       morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic })
       morph "#currentFocus", %(<input type="hidden" id="currentFocus" value="#{topic.class}::#{topic.id}" />)

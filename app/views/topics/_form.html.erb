@@ -1,3 +1,6 @@
+<% is_edit ||= false %>
+<% topic = is_edit ?  Topic.find(topic_id) : topic %>
+
 <div class ="grid place-items-center border py-2 px-5 rounded border-gray-300 items-center shadow-md shadow-gray-400" >
   <h2 class="mb-5 text-lg font-bold">New Topic</h2>
 
