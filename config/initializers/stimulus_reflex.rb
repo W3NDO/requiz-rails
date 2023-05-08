@@ -33,7 +33,7 @@ StimulusReflex.configure do |config|
   # Override the logger that the StimulusReflex uses; default is Rails' logger
   # eg. Logger.new(RAILS_ROOT + "/log/reflex.log")
   #
-  # config.logger = Rails.logger
+  config.logger = Rails.logger
 
   # Customize server-side Reflex logging format, with optional colorization:
   # Available tokens: session_id, session_id_full, reflex_info, operation, id, id_full, mode, selector, operation_counter, connection_id, connection_id_full, timestamp
@@ -42,7 +42,7 @@ StimulusReflex.configure do |config|
   # eg. if your connection is `identified_by :current_user` and your User model has an email attribute, you can access r.email (it will display `-` if the user isn't logged in)
   # Learn more at: https://docs.stimulusreflex.com/appendices/troubleshooting#stimulusreflex-logging
   #
-  # config.logging = proc { "[#{session_id}] #{operation_counter.magenta} #{reflex_info.green} -> #{selector.cyan} via #{mode} Morph (#{operation.yellow})" }
+  config.logging = proc { "[#{session_id}] #{operation_counter.magenta} #{reflex_info.green} -> #{selector.cyan} via #{mode} Morph (#{operation.yellow})" }
 
   # Optimized for speed, StimulusReflex doesn't enable Rack middleware by default.
   # If you are using Page Morphs and your app uses Rack middleware to rewrite part of the request path, you must enable those middleware modules in StimulusReflex.

@@ -19,6 +19,17 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         serif: ['Montserrat'],
       },
+      keyframes: {
+        'fade-out': {
+          '0%': { 'opacity': 0},
+          '7.5%': { 'opacity': 1},
+          '92.5%': {'opacity': 1},
+          '100%': {'opacity': 0, 'left': '-9999px'}
+        },
+      },
+      animation: {
+        'fade-out': 'fade-out 7s forwards '
+      },
     },
   },
   plugins: [

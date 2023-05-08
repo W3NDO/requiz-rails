@@ -6,6 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= favicon_link_tag %>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -14,7 +15,9 @@
   </head>
 
   <body class="sm:overflow-scroll md:overflow-scroll overflow-hidden">
-    <main class="mx-auto m-5 px-5 grid place-items-center font-serif w-full h-full">
+    <main id="" class="mx-auto m-5 px-5 grid place-items-center font-serif w-full h-full" data-controller="notification-modal">
+      <div id="notification_container" class="w-full h-full"></div>
+      <div id="modal_container" class="min-w-max w-64 z-50 fixed top-auto left-auto border-gray-500 bg-white opacity-100 border-4 p-5 rounded-2xl shadow-2xl shadow-gray-500 hidden"></div>
       <%= yield %>
     </main>
   </body>
