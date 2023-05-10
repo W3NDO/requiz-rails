@@ -8,6 +8,7 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
+
     minHeight:{
       '4/5': '80%',
       '3/5': '60%',
