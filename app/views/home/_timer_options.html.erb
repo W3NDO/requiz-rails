@@ -1,11 +1,11 @@
-<% timer_options = [0.1,0.5, 1,5,10,20,30,60] %>
+<% timer_options = [0.1, 0.5, 1, 5, 10, 20, 30, 60] %>
 
 <ul class="">
     <% timer_options.each do |value| %>
         <div class="flex justify-around">
             <span class="font-semibold"> <%= value < 1 ? "#{ (value*60).to_i } sec" : "#{ value } min" %> </span>
-            <div class="flex justify-around">
-                <div><button value=<%= value %> type="button" data-action="click->timer#addTime" class="rounded-lg px-2 m-1 border add-<%= value %>" data-timer-add-value=<%= value %> data-timer-target="addTime"> <%= icon("fa-solid", "plus") %> </button>
+            <div>
+                <button value=<%= value %> type="button" data-action="click->timer#addTime" class="rounded-lg px-2 m-1 border add-<%= value %>" data-timer-add-value=<%= value %> data-timer-target="addTime"> <%= icon("fa-solid", "plus") %> </button>
                 <button value=<%= value %> type="button" data-action="click->timer#subtractTime" class="rounded-lg px-2 m-1 border subtract-<%= value %>" data-timer-subtract-value=<%= value %> data-timer-target="subtractTime"> <%= icon("fa-solid", "minus") %> </button>
             </div>
         </div>

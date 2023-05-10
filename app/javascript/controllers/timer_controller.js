@@ -5,17 +5,32 @@ export default class extends ApplicationController {
     super.connect();
   }
 
-  startRefreshing(){  
-    this.stopRefreshing
-    this.refreshTimer = setInterval( () => {
-      if(this.timeValue > 0 && this.pausedValue == false){
-        this.setClock(this.timeValue - 1)
-      } else {
-        this.stopRefreshing
-        this.pausedValue = true
-        this.togglePlayPauseButton
-      }
-    }, 1000);
+  startRefreshing(){
+    console.log("Attempting to start timer:: ", this.refreshTimer)
+    // this.refreshTimer = null;
+    if( this.timeValue != 0){
+        this.toggleTimes();
+        this.refreshTimer = setInterval( () => {
+            console.log("Timer running ", this.refreshTimer)
+          if(this.timeValue > 0 && this.pausedValue == false){
+            if (this.timeValue == 60 ){
+                this.stimulate('Application#show_notification', "1 minute left" );
+            } else if( this.timeValue == 30 ){
+                this.stimulate('Application#show_notification', "30 seconds left" );
+            }
+            this.setClock(this.timeValue - 1)
+        } else {
+            this.stimulate('Application#show_notification', "Time is up", "true" );
+            clearInterval(this.refreshTimer);
+            this.pausedValue = true
+          }
+        }, 1000);
+    } else {
+        console.log("Stopped Timer: ", this.refreshTimer);
+        this.refreshTimer = null
+        this.stimulate('Application#show_notification', "Please set a time value to begin the timer" );
+        this.toggleTimes()
+    }
   }
 
   stopRefreshing(){
@@ -30,11 +45,11 @@ export default class extends ApplicationController {
   };
 
   static targets = [
-    "timersList", 
-    "clock", 
-    "addTime", 
-    "subtractTime", 
-    "startTimer", 
+    "timersList",
+    "clock",
+    "addTime",
+    "subtractTime",
+    "startTimer",
     "stopTimer",
     "isPaused"
   ];
@@ -78,7 +93,7 @@ export default class extends ApplicationController {
     }
     this.setClock(currentTotal);
   }
-  
+
   divmod(val, div){
     return([Math.floor(val/div), val%div]);
   }
