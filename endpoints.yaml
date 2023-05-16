@@ -1,0 +1,43 @@
+openapi: 3.1.0
+info: 
+  title: ReQuiz API endpoints
+  version: 0.0.1
+paths: 
+  /users:
+    patch:
+      summary: Update user account details
+      description: Allows Users to update their account details.
+      parameters: 
+      responses:
+        "200":
+          description: 
+          content: 
+            application/json:
+
+        "404":
+
+
+    post:
+      summary: Create A New User
+      description: Allows Users to create their account details.
+      parameters: 
+      responses:
+        "200":
+          description: 
+          content: 
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  email: 
+                    description: email to sign up
+                    type: string
+                  password:
+                    type: string
+                  password_confirmation:
+                    type: string
+
+        "404":
+        
+    delete: 
+
