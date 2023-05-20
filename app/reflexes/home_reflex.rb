@@ -38,16 +38,16 @@ class HomeReflex < ApplicationReflex
     # TODO save the current topic first or ask to save it.
     topic = Topic.find(element.dataset[:topic_id])
     currentFocusValue = "#{topic.class}::#{topic.id}"
-    if topic.notes.size == 1 and topic.notes.first.content.empty?
-      morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic } )
+    if topic.notes.last.content.empty?
+      morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic, editing: true } )
     else
-      morph "#main_container", render(partial: "notes/note", locals:{ note: topic.notes.first, topic: topic })
+      morph "#main_container", render(partial: "notes/note", locals:{ note: topic.notes.last, topic: topic })
     end
     morph "#currentFocus", %(<input type="hidden" value="#{currentFocusValue}"/> )
   end
 
   def change
     cable_ready.console_log(message: "Received from Home").broadacast
-    morph "#main_container", "Your muscles... they are so tight."
+    show_notification("Test change function")
   end
 end

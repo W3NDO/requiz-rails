@@ -1,0 +1,32 @@
+<div data-controller="kshn" class="nes_main nes-container is-rounded is-dark h-screen w-full">
+<div id="error" class="font-red-500"></div>
+  <span id="current_question" class="hidden">0</span>
+  <div id="kshn-main" class="w-full flex-col justify-center">
+    <section class="message -left">
+        <i class="nes-bcrikko"></i>
+        <!-- Balloon -->
+        <div class="nes-balloon from-left is-dark">
+          <p>Hello Kashan</p>
+        </div>
+    </section>
+    <section class="message -left">
+        <i class="nes-bcrikko"></i>
+        <!-- Balloon -->
+        <div class="nes-balloon from-left is-dark">
+          <p>Shall We play a game? :) </p>
+        </div>
+    </section>
+    <div class="w-full flex justify-around mt-5">
+      <%= button_tag "Yessir", type: "button", data:{reflex: "click->KshnReflex#start_game", agree: true}, class: "nes-btn is-primary"  %>
+      <%= button_tag "No", type: "button", data:{reflex: "click->KshnReflex#start_game", agree: false}, class: "nes-btn is-warning"  %>
+    </div>
+
+  </div>
+</div>
+
+
+<style>
+  .nes_main{
+    font-family: "Press Start 2P";
+  }
+</style>
