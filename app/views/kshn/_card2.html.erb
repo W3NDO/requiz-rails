@@ -1,0 +1,25 @@
+<% questions = {
+      "What was the first Language you & Wendo coded in??" => ["BASIC", "VISUAL BASIC", "Javascript"],
+    } %>
+
+<form>
+    <div class="m-5 max-w-44 border nes-container is-centered is-dark is-rounded flex-col justify-between">
+        <% questions.keys.each_with_index do |question, qidx| %>
+            <div class="w-full font-semibold"> 
+                <span> <%= question %> </span>
+            </div>
+
+            <ul>
+                <% questions[question].each_with_index do | answer, idx |%>
+                    <%= button_tag(type: "button", id:"q#{qidx}", class:"nes-btn is-light", data: {reflex: "click->Kshn#check", answer: answer }) do %>
+                        <span><%= answer %> </span>
+                    <% end %>
+
+                <% end %>
+            </ul>
+        <% end %>
+    </div>
+    <div class="flex justify-around">
+        <%= button_tag "Next", type: "button", id: "nextBtn", data:{reflex: "click->Kshn#mark2"}, class: "nes-btn is-primary nextBtn" %>
+    </div>
+</form>
