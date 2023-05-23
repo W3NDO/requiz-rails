@@ -82,6 +82,6 @@ config.cache_store = :redis_cache_store, {
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
 
-  # Rails.application.config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/, nil] # for flutter apps, the request origin is nil. 
-  config.hosts << "d2a8-102-217-127-1.ngrok-free.app"
+  Rails.application.config.action_cable.allowed_request_origins = [/http:\/\/*/, /https:\/\/*/, nil] # for flutter apps, the request origin is nil. 
+  # config.hosts << "1dae-102-217-127-1.ngrok-free.app"
 end

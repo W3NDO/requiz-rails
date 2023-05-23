@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_23_104719) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_23_123633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_104719) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "subtopics", force: :cascade do |t|
@@ -73,7 +74,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_104719) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string "topic_name"
+    t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"

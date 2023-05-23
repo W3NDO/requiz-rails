@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   validates :password, length: {minimum: 6}
   has_many :topics
+  has_many :quizzes
 
   private
   def generatePublicId

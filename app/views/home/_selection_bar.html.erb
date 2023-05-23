@@ -1,0 +1,20 @@
+<% model_options = current_user.public_send(model.downcase.pluralize.to_sym) %>
+
+<div class="flex justify-between border-b-2 border-gray-500 p-2">
+    <span class="font-bold p-1"> <%= "My #{model.pluralize.titleize}"%> </span>
+    <%= button_tag(type: "button", data: { reflex:"click->HomeReflex#new_object_view", partial_path: "#{model.pluralize.downcase}/form", model: model.singularize }, class: "p-1 bg-blue-500 rounded text-center rounded-full") do %>
+        <span class="text-white font-semibold flex justify-around"> <%= "+ Add a new" %> </span>
+    <% end %>
+</div>
+
+<% unless model_options.empty? %>
+    <% model_options.each do |option| %>
+        <div class="">
+            <%= button_tag(class: "py-1 px-2 my-1 bg-blue-500 rounded-lg ", type: "button", data: { reflex: "click->HomeReflex#focus_on_new_option", option_id: option.id }) do %>
+                <span class="text-white font-semibold flex justify-around"> <%= option.title  %> </span> <!-- TODO will trigger an SR action -->
+            <% end %> 
+        </div>
+    <% end %>
+<% else %> 
+    <span class="font-semibold text-justify "><%= "Hey there! you don't have any #{ model.to_s.pluralize } yet. Let's get you set up with one by clicking the add new button above" %> </span>
+<% end %> 
