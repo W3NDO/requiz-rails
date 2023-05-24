@@ -10,11 +10,11 @@
 <% unless model_options.empty? %>
     <% model_options.each do |option| %>
         <div class="">
-            <%= button_tag(class: "py-1 px-2 my-1 bg-blue-500 rounded-lg ", type: "button", data: { reflex: "click->HomeReflex#focus_on_new_option", option_id: option.id }) do %>
+            <%= button_tag(class: "py-1 px-2 my-1 bg-blue-500 rounded-lg ", type: "button", data: { reflex: "click->HomeReflex#focus_on_new_option", id: option.id, model: model }) do %>
                 <span class="text-white font-semibold flex justify-around"> <%= option.title  %> </span> <!-- TODO will trigger an SR action -->
-            <% end %> 
+            <% end %>
         </div>
     <% end %>
-<% else %> 
+<% else %>
     <span class="font-semibold text-justify "><%= "Hey there! you don't have any #{ model.to_s.pluralize } yet. Let's get you set up with one by clicking the add new button above" %> </span>
-<% end %> 
+<% end %>
