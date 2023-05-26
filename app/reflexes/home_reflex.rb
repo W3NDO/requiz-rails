@@ -1,53 +1,78 @@
 # frozen_string_literal: true
 
 class HomeReflex < ApplicationReflex
+  include ActiveSupport::Inflector
+
   def switch_main_container
     morph "#main_container", render(partial: element.dataset["partial_path"])
-    cable_ready.console_log(message: "Received from Home :: #{object}").broadcast    
+    cable_ready.console_log(message: "Received from Home :: #{object}").broadcast
   end
 
   def new_object_view
-    new_objects = {
-      "topic" => Topic,
-      "subtopic" => Subtopic,
-    }
-
-    object = new_objects[element.dataset["model"]].public_send(:new)
-    cable_ready.console_log(message: "Received from Home :: #{object}").broadcast    
-    morph "#main_container", render(partial: element.dataset[:partial_path], locals: { element.dataset["model"].to_sym => Topic.new })
+    model = element.dataset["model"]
+    object = get_object(model)
+    morph "#main_container", render(partial: element.dataset[:partial_path], locals: { model.downcase.singularize.to_sym => object })
   end
 
   def save_new_object # TODO make this more generic
-    topic = Topic.new(topic_name: params["topic"]["topic_name"])
-    topic.user_id = current_user.id
+    model = element.dataset["model"]
+    object = get_object(model).new
+    params[model].each do |k,v|
+      object[k.downcase.to_sym] = v
+    end
+    object.user_id = current_user.id
+    cable_ready.console_log( message: object )
 
-    if topic.save
-      show_notification("Topic Saved")
-
-      morph "#topics_bar", render(partial: "home/topics_bar", locals:{ topics: current_user.topics})
-      morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic })
-      morph "#currentFocus", %(<input type="hidden" id="currentFocus" value="#{topic.class}::#{topic.id}" />)
+    if object.save
+      show_notification("#{model.titleize} Saved")
+      morph "#selection_bar", render(
+        partial: "home/selection_bar",
+        locals: {
+          :model => model.singularize,
+          model.pluralize.to_sym => current_user.public_send(model.pluralize.to_sym)
+        }
+      )
+      morph "#main_container", render(
+        partial: "#{model.pluralize.downcase}/form",
+        locals:{
+          object => object,
+        }
+      )
+      # morph "#currentFocus", %(<input type="hidden" id="currentFocus" value="#{topic.class}::#{topic.id}" />)
     else
-      show_notification("There was an Error creating the new Topic", is_error = true)
-      morph "#topics_bar", "#{topic.errors.full_messages}"
+      show_notification("There was an Error creating the new #{mdodel.titleize}", is_error = true)
+      morph "#selection_bar", "#{topic.errors.full_messages}"
     end
     # morph :nothing
   end
 
-  def focus_on_new_topic
+  def focus_on_new_option
     # TODO save the current topic first or ask to save it.
-    topic = Topic.find(element.dataset[:topic_id])
-    currentFocusValue = "#{topic.class}::#{topic.id}"
-    if topic.notes.last.content.empty?
-      morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic, editing: true } )
-    else
-      morph "#main_container", render(partial: "notes/note", locals:{ note: topic.notes.last, topic: topic })
-    end
-    morph "#currentFocus", %(<input type="hidden" value="#{currentFocusValue}"/> )
+    model = element.datasaet["model"]
+    object = get_object(model).find(element.dataset["id"])
+    # currentFocusValue = "#{topic.class}::#{topic.id}"
+    # if topic.notes.last.content.empty?
+    #   morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic, editing: true } )
+    # else
+    #   morph "#main_container", render(partial: "notes/note", locals:{ note: topic.notes.last, topic: topic })
+    # end
+    # morph "#currentFocus", %(<input type="hidden" value="#{currentFocusValue}"/> )
+    morph :nothing
+  end
+
+  def alter_sidebar
+    model = element.dataset[:model]
+    morph "#selection_bar", render(partial: "home/selection_bar", locals:{model: model})
   end
 
   def change
     cable_ready.console_log(message: "Received from Home").broadacast
     show_notification("Test change function")
+  end
+
+  private
+  def get_object(model)
+    allowed_objects = [Topic, Subtopic, Quiz]
+    allowed_objects.select{ |obj| model.classify == obj.to_s }.first
   end
 end

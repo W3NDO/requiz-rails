@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :quizzes
   get '/kshn', to: "kshn#index"
   # resources :notes
   resource :example, constraints: -> { Rails.env.development? }

@@ -1,6 +1,6 @@
 <% timer_options = [0.1, 0.5, 1, 5, 10, 20, 30, 60] %>
 
-<ul class="">
+<ul class="" data-controller="timer">
     <% timer_options.each do |value| %>
         <div class="flex justify-around">
             <span class="font-semibold"> <%= value < 1 ? "#{ (value*60).to_i } sec" : "#{ value } min" %> </span>
