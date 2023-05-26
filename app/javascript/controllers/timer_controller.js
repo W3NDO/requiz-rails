@@ -65,6 +65,7 @@ export default class extends ApplicationController {
   }
 
   addTime(e){
+    console.log("adding time")
     var caller = e.target.closest("button");
     var currentTotal = this.timeValue;
     if(caller.hasAttribute){

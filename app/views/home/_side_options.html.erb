@@ -18,7 +18,7 @@
 <% end %>
 
 <div class="flex justify-between">
-    <button data-action="click->timer#toggleTimes" type="button" class="p-2 border flex items-center border-white hover:border-gray-700 rounded-full hover:shadow-md" data-reflex="click->Application#yet_to_implement">
+    <button type="button" class="p-2 border flex items-center border-white hover:border-gray-700 rounded-full hover:shadow-md" data-reflex="click->Timer#toggle_times">
         <span class="font-bold mx-3 text-lg"> <%= icon("fa-solid", "stopwatch") %> </span>
         <span class=" font-semibold"> Start A Timer </span>
     </button>
@@ -37,4 +37,8 @@
                 00:00
         </span>
     </div>
+</div>
+
+<div class="justify-around hidden" data-timer-target="timersList">
+    <%= render(partial: "home/timer_options", locals: {}) %>
 </div>
