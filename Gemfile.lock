@@ -110,7 +110,6 @@ GEM
       sassc (~> 2.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    hiredis (0.6.3)
     i18n (1.13.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -287,15 +286,12 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   font-awesome-sass (~> 6.4.0)
-  hiredis
   image_processing (~> 1.2)
   importmap-rails
   jbuilder
   pg (~> 1.1)
   puma (~> 5.0)
-  rack
   rails (~> 7.0.4, >= 7.0.4.3)
-  redis (>= 4.0)
   redis-session-store (~> 0.11.5)
   rspec-rails (~> 6.0)
   selenium-webdriver
