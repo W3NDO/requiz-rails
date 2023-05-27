@@ -35,6 +35,10 @@ class ApplicationReflex < StimulusReflex::Reflex
     # sub_locals = JSON.parse(element.dataset["sub_locals"])
     morph "#modal_container", render( partial: "shared/dialog_modal", locals: { partial_path: partial_path, sub_locals: sub_locals } )
   end
+
+  def log(message)
+    cable_ready.console_log(message: "LOG :: #{message}").broadcast
+  end
   
   def yet_to_implement
     show_notification("You caught me. This is yet to be implemented", is_error=true)

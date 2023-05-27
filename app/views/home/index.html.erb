@@ -1,10 +1,12 @@
 <div class="w-full max-h-screen grid grid-cols-6 grid-rows-6">
-    <aside class="m-2 row-start-1 row-end-7 col-start-1 col-end-3 grid grid-rows-6 overflow-y-scroll max-h">
-        <div data-controller="timer" class="row-start-1 row-end-3 border border-gray-500 mb-1 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
+    
+    <aside class="mx-2 row-start-1 row-end-7 col-start-1 col-end-3 grid grid-rows-6 overflow-y-scroll max-h">
+        
+        <div data-controller="timer" class="nes-container is-rounded row-start-1 row-end-3 border border-gray-500 my-5 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
             <%=  render(partial: "home/side_options") %>
         </div>
 
-        <div class="row-start-3 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 mt-1 p-2 overflow-y-scroll">
+        <div class="my-5 nes-container is-rounded row-start-3 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 p-2 overflow-y-scroll">
             <div id="selection_bar">
                 <%= render(partial: "home/selection_bar", locals: {model: "quiz"}) %>
             </div>
@@ -13,22 +15,38 @@
                 <input type="hidden" value="" />
             </div>
         </div>
+
     </aside>
 
-    <div id="main_container" class="row-start-1 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 m-2 col-start-3 col-end-7">
+    <div id="main_container" 
+        class="mx-2 nes-container is-rounded row-start-1 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-7">
     </div>
 
-    <div class="flex justify-between w-full col-start-1 col-end-7">
-        <%= button_tag "test normal dialog",
-            type: "button",
-            data: {
-                reflex: "click->Shared::NotificationModalReflex#show_dialog",
-                partial_path: "topics/form",
-                sub_locals: {
-                    model: "topic"
-                    }
-                },
-            class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
-        <%= button_tag "test confirm dialog", type: "button", data: { reflex: "click->Shared::NotificationModalReflex#show_confirmation_dialog", }, class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
-    </div>
+    <% if Rails.env.development? %>
+        <div class="flex justify-between w-full col-start-1 col-end-7">
+            <%= button_tag "test normal dialog",
+                type: "button",
+                data: {
+                    reflex: "click->Shared::NotificationModalReflex#show_dialog",
+                    partial_path: "topics/form",
+                    sub_locals: {
+                        model: "topic"
+                        }
+                    },
+                class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
+            <%= button_tag "test confirm dialog", 
+                type: "button", 
+                data: { 
+                    reflex: "click->Shared::NotificationModalReflex#show_confirmation_dialog" 
+                }, 
+                class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" 
+            %>
+        </div>
+    <% end %>
 </div>
+
+<style>
+  .nes-main{
+    font-family: "Press Start 2P";
+  }
+</style>

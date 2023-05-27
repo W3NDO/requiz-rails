@@ -1,0 +1,15 @@
+<form>
+
+  <label class="nes-btn">
+    <span>Select your file</span>
+    <input type="file">
+  </label>
+
+  <%= button_tag(type: "button", class: "nes-btn is-primary", data: {
+    reflex: "click->Quiz#process_upload", 
+    reflex_serialize_form: true
+  }) do %>
+    <span> Upload </span>
+  <% end %>
+</form>
+

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_23_123633) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_27_145707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,12 +58,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_23_123633) do
     t.integer "topic_id"
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.jsonb "tag"
+    t.string "question"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quiz_id"
+    t.string "possible_answers", default: [], array: true
+  end
+
   create_table "quizzes", force: :cascade do |t|
-    t.jsonb "questions"
+    t.jsonb "tag"
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.jsonb "qfiles"
+    t.string "quiz_file"
+    t.integer "processed"
   end
 
   create_table "subtopics", force: :cascade do |t|

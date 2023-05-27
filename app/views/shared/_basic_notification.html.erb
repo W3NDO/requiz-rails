@@ -1,10 +1,10 @@
 <% is_error ||= false %>
 
-<div class=" max-w-32 border bg-white <%= is_error ? "border-red-600 shadow-red-500" : "border-blue-600 shadow-blue-500" %> p-5 rounded-2xl absolute bottom-10 shadow-md animate-fade-out">
+<div class="z-50 max-w-32 border bg-white <%= is_error ? "border-red-600 shadow-red-500" : "border-blue-600 shadow-blue-500" %> p-5 rounded-2xl absolute bottom-10 shadow-md animate-fade-out">
     <span class="font-semibold">
         <%= is_error ? icon('fa-solid', 'circle-exclamation', class: "text-red-600") : icon('fa-regular', 'bell', class: "text-blue-600") %> 
     </span>
-    <span class="font-semibold">
-        <p> <%= message %> <%= is_error ? " &#x263A;" :  "&#x263A;" %> </p>
+    <span class="font-semibold nes-main">
+        <p> <%= message %>  </p>
     </span>
 </div>

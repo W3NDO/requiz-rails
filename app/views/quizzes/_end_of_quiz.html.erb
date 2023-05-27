@@ -1,0 +1,24 @@
+<% score = ((correct_answer_count.to_f/question_count.to_f)*100).to_i %>
+<% grading = {
+    :A => [86, "text-green-500" ],
+    :B => [76, "text-blue-500" ],
+    :C => [66, "text-red-500"],
+    :D => [56, "text-red-500"],
+    :E => [0, "text-red-500"] }
+%>
+<% res = :D %>
+<% grading.each do |k,v| %>
+    <% if score >= v[0] %>
+        <% res = [k.to_s.titleize, v[1]] %>
+        <% break %>
+    <% end %>
+<% end %>
+
+<div class="nes-container my-8 is-rounded is-dark h-72 flex-col justify-between text-yellow-500">
+    <div class="w-full flex-col justify-around items-center py-8">
+        <div class="nes-main my-5 w-full flex items-center justify-around"> <span class="w-full text-center font-semibold text-xl">  Your score </span> </div>
+        <div class="my-5 w-full flex items-center justify-around"> <span class="w-full text-center nes-main text-5xl"> <span class="<%= res[1] %>"> <%= res[0] %> </span> <%= "#{ score } % "%> </span> </div>
+    </div>
+    <div class="w-full flex itmes-center justify-between">
+    </div>
+</div>
