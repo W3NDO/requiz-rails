@@ -82,6 +82,6 @@ test:
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
-  database: ReQuiz_production
-  username: ReQuiz
-  password: <%= ENV["REQUIZ_DATABASE_PASSWORD"] %>
+  database: requiz_db
+  username: <%= ENV['DATABASE_USER']
+  password: <%= ENV["DATABASE_PASSWORD"] %>
