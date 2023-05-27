@@ -86,4 +86,4 @@ gem "action-cable-redis-backport", "~> 1"
 gem "redis-session-store", "~> 0.11.5"
 gem "redis", ">= 4.0", require: ["redis", "redis/connection/hiredis"]
 gem "hiredis"
-gem "rack", git: "https://github.com/rack/rack.git", ref: "8be612a"
+gem "rack"
