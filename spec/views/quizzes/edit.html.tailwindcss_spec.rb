@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "quizzes/edit", type: :view do
   let(:quiz) {
     Quiz.create!(
-      questions: "",
+      tag: "",
       title: "MyString"
     )
   }
@@ -17,7 +17,7 @@ RSpec.describe "quizzes/edit", type: :view do
 
     assert_select "form[action=?][method=?]", quiz_path(quiz), "post" do
 
-      assert_select "input[name=?]", "quiz[questions]"
+      assert_select "input[name=?]", "quiz[tag]"
 
       assert_select "input[name=?]", "quiz[title]"
     end

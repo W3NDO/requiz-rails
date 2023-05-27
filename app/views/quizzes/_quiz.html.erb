@@ -1,17 +1,19 @@
-<div id="<%= dom_id quiz %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Questions:</strong>
-    <%= quiz.questions %>
-  </p>
+<div class="nes-container with-title is-rounded">
+  <span class="title nes-main"><%= quiz.title.titleize %></span>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
-    <%= quiz.title %>
-  </p>
+  <div id="quiz_main"> </div>
+  
+  <div class="w-full flex justify-around">
+    <%= button_tag(type: "button", data: {
+      reflex: "click->Quiz#add_questions", id: quiz.id, is_edit: true
+    }, class: "nes-btn is-primary ") do %>
+      <span class="font-semibold"> + Upload Question CSV </span>
+    <% end %>
 
-  <% if action_name != "show" %>
-    <%= link_to "Show this quiz", quiz, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this quiz', edit_quiz_path(quiz), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+    <%= button_tag(type: "button", data: {
+      reflex: "click->Quiz#add_questions", id: quiz.id
+    }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-primary"} ") do %>
+      <span class="font-semibold"> Start Quiz </span>
+    <% end %>
+  </div>
 </div>

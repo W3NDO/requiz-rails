@@ -4,11 +4,11 @@ RSpec.describe "quizzes/index", type: :view do
   before(:each) do
     assign(:quizzes, [
       Quiz.create!(
-        questions: "",
+        tag: "",
         title: "Title"
       ),
       Quiz.create!(
-        questions: "",
+        tag: "",
         title: "Title"
       )
     ])

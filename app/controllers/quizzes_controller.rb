@@ -1,5 +1,6 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
 
   # GET /quizzes or /quizzes.json
   def index
@@ -22,10 +23,11 @@ class QuizzesController < ApplicationController
   # POST /quizzes or /quizzes.json
   def create
     @quiz = Quiz.new(quiz_params)
+    @quiz.user_id = current_user.id
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to quiz_url(@quiz), notice: "Quiz was successfully created." }
+        format.html { redirect_to root_path notice: "Quiz was successfully created." }
         format.json { render :show, status: :created, location: @quiz }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,6 +67,6 @@ class QuizzesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def quiz_params
-      params.require(:quiz).permit(:questions, :title)
+      params.require(:quiz).permit(:tag, :title, :quiz_file)
     end
 end

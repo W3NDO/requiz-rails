@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "quizzes/show", type: :view do
   before(:each) do
     assign(:quiz, Quiz.create!(
-      questions: "",
+      tag: "",
       title: "Title"
     ))
   end

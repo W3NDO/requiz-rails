@@ -1,63 +1,52 @@
 # frozen_string_literal: true
 
 class HomeReflex < ApplicationReflex
-  include ActiveSupport::Inflector
-
-  def switch_main_container
-    morph "#main_container", render(partial: element.dataset["partial_path"])
-    cable_ready.console_log(message: "Received from Home :: #{object}").broadcast
-  end
-
   def new_object_view
     model = element.dataset["model"]
     object = get_object(model)
-    morph "#main_container", render(partial: element.dataset[:partial_path], locals: { model.downcase.singularize.to_sym => object })
+    morph "#main_container", render(partial: element.dataset[:partial_path], locals: { model.downcase.singularize => object })
   end
 
-  def save_new_object # TODO make this more generic
+  def save_new_object
     model = element.dataset["model"]
-    object = get_object(model).new
-    params[model].each do |k,v|
-      object[k.downcase.to_sym] = v
-    end
+    log(params[model])
+    object = get_object(model).new(sanitize_params(model, params))
     object.user_id = current_user.id
-    cable_ready.console_log( message: object )
+    log(object.persisted?)
 
     if object.save
+      # object.quiz_file.attach(params[model]["quiz_file"]) if model == "quiz"
       show_notification("#{model.titleize} Saved")
       morph "#selection_bar", render(
         partial: "home/selection_bar",
         locals: {
           :model => model.singularize,
-          model.pluralize.to_sym => current_user.public_send(model.pluralize.to_sym)
         }
       )
       morph "#main_container", render(
-        partial: "#{model.pluralize.downcase}/form",
+        partial: "#{model.pluralize.downcase}/#{model.downcase}",
         locals:{
-          object => object,
+          model.to_sym => object
         }
       )
       # morph "#currentFocus", %(<input type="hidden" id="currentFocus" value="#{topic.class}::#{topic.id}" />)
     else
-      show_notification("There was an Error creating the new #{mdodel.titleize}", is_error = true)
-      morph "#selection_bar", "#{topic.errors.full_messages}"
+      show_notification("There was an Error creating the new #{model.titleize}", is_error = true)
+      morph "#selection_bar", "#{object.errors.full_messages}"
     end
     # morph :nothing
   end
 
   def focus_on_new_option
     # TODO save the current topic first or ask to save it.
-    model = element.datasaet["model"]
+    model = element.dataset["model"].downcase
     object = get_object(model).find(element.dataset["id"])
-    # currentFocusValue = "#{topic.class}::#{topic.id}"
-    # if topic.notes.last.content.empty?
-    #   morph "#main_container", render(partial: "notes/form", locals:{ note: topic.notes.first, topic: topic, editing: true } )
-    # else
-    #   morph "#main_container", render(partial: "notes/note", locals:{ note: topic.notes.last, topic: topic })
-    # end
-    # morph "#currentFocus", %(<input type="hidden" value="#{currentFocusValue}"/> )
-    morph :nothing
+    morph "#main_container", render(
+        partial: "#{model.pluralize.downcase}/#{model.downcase}",
+        locals:{
+          model.to_sym => object
+        }
+      )
   end
 
   def alter_sidebar
@@ -65,14 +54,17 @@ class HomeReflex < ApplicationReflex
     morph "#selection_bar", render(partial: "home/selection_bar", locals:{model: model})
   end
 
-  def change
-    cable_ready.console_log(message: "Received from Home").broadacast
-    show_notification("Test change function")
-  end
-
   private
   def get_object(model)
     allowed_objects = [Topic, Subtopic, Quiz]
     allowed_objects.select{ |obj| model.classify == obj.to_s }.first
+  end
+
+  def sanitize_params(model, params)
+    allowed_params = {
+      :quiz => [:tag, :title, :quiz_file],
+      :topic => [:title]
+    }
+    params.require(model.to_sym).permit(*allowed_params[model.to_sym])
   end
 end
