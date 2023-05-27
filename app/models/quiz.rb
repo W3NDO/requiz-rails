@@ -8,6 +8,10 @@ include QuizzesHelper
   has_one_attached :quiz_file
   enum :processed, [:analyzed], default: :not_analyzed
 
+  def get_questions()
+    return self.questions.map{ |q| {:id=> q.id, :question => q.question, :possible_answers => q.possible_answers} }
+  end
+
   private
   def acceptable_file
     pp "LOG ==> Success attached" unless quiz_file.attached?

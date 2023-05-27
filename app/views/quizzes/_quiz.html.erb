@@ -1,19 +1,25 @@
 <div class="nes-container with-title is-rounded">
   <span class="title nes-main"><%= quiz.title.titleize %></span>
+  <div class="flex-row items-end w-full">
+    <span id="counter" class="font-semibold nes-main"></span>
+  </div>
 
-  <div id="quiz_main"> </div>
+  <div id="quiz_main">
+  </div>
+  <% unless quiz.questions.empty? %>
+    <%= button_tag(type: "button", id: "start_btn", data: {
+        reflex: "click->Quiz#start_quiz", id: quiz.id
+      }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-primary"} ") do %>
+        <%= icon("fa-solid", "play") %>
+        <span class="font-semibold"> Start Quiz </span>
+    <% end %>
+  <% end %>
   
   <div class="w-full flex justify-around">
     <%= button_tag(type: "button", data: {
       reflex: "click->Quiz#add_questions", id: quiz.id, is_edit: true
     }, class: "nes-btn is-primary ") do %>
       <span class="font-semibold"> + Upload Question CSV </span>
-    <% end %>
-
-    <%= button_tag(type: "button", data: {
-      reflex: "click->Quiz#add_questions", id: quiz.id
-    }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-primary"} ") do %>
-      <span class="font-semibold"> Start Quiz </span>
     <% end %>
   </div>
 </div>

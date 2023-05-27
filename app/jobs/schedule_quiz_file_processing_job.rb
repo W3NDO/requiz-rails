@@ -6,12 +6,12 @@ class ScheduleQuizFileProcessingJob < ApplicationJob
     pp "Building Questions for Quiz: #{quiz.title}"
     objects_to_save = []
     quiz.quiz_file.attachment.open do |file|
-      CSV.parse(file, headers: true) do |row|
+      CSV.parse(file, headers: false) do |row|
         row = row.to_csv.split(",")
         new_question = {
           :question => row[0],
           :possible_answers => row[1..-2],
-          :answer => row[-1],
+          :answer => row[-1].chomp,
           :quiz_id => quiz.id,
           :tag => quiz.tag
         }

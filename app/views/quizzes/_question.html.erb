@@ -1,0 +1,21 @@
+<div class="nes-container my-8 is-rounded is-dark h-72 flex-col justify-between">
+    <div class="w-full flex justify-around items-center py-8">
+        <span class="font-semibold text-3xl"> <%= question.question %> </span>
+    </div>
+    <div class="w-full flex itmes-center justify-between">
+        <% question.possible_answers.each do |ans| %>
+            <%= button_tag(type: "button", 
+                class: "nes-btn max-w-xl", 
+                data: {
+                    reflex: "click->Quiz#check_answer", 
+                    :qid => question.id, 
+                    :order => order,
+                    :next_index => next_index,
+                    :my_answers => my_answers,
+                    :correct_answer_count => correct_answer_count,
+                    :ans => ans}) do %>
+                <span class="font-semibold px-5"> <%= ans %> </span>
+            <% end %>
+        <% end %>
+    </div>
+</div>
