@@ -1,11 +1,12 @@
 class Quiz < ApplicationRecord
+require 'csv'
 include QuizzesHelper
-  after_save :process_file
+  after_save :schedule_process_job
   validate :acceptable_file
   has_many :questions
   belongs_to :user
   has_one_attached :quiz_file
-
+  enum :processed, [:analyzed], default: :not_analyzed
 
   private
   def acceptable_file
@@ -24,22 +25,8 @@ include QuizzesHelper
     end
   end
 
-  def process_file
-    # process_input_file(self.quiz_file, self)
-    self.quiz_file.open do |file|
-      file.each_line do |line|
-        line = line.split(',')
-        q = Question.new()
-        q.question = line[0]
-        q.answer = line[-1]
-        q.possible_answers = line[1..-2]
-        q.quiz_id = self.id
-        q.tag = self.tag
-        if q.valid?
-          q.save
-        end
-      end
-    end
+  def schedule_process_job
+    ScheduleQuizFileProcessingJob.perform_later(self) unless self.analyzed?
   end
 
 end
