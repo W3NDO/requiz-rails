@@ -36,6 +36,7 @@ config.session_store :redis_session_store,
     config.action_controller.enable_fragment_cache_logging = true
 
 config.cache_store = :redis_cache_store, {
+  driver: :hiredis,
   url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
 }
     config.public_file_server.headers = {
