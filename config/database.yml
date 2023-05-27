@@ -83,5 +83,5 @@ production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
   database: requiz_db
-  username: <%= ENV['DATABASE_USER']
+  username: <%= ENV['DATABASE_USER'] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
