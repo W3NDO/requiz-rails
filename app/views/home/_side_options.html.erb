@@ -22,27 +22,29 @@
         </div>
     <% end %>
 
-    <div class="flex justify-between">
-        <button type="button" class="p-2 border flex items-center border-white hover:border-gray-700 rounded-full hover:shadow-md" data-reflex="click->Timer#toggle_times">
-            <span class="font-bold mx-3 text-lg"> <%= icon("fa-solid", "stopwatch") %> </span>
-            <span class=" font-semibold"> Start A Timer </span>
-        </button>
-
-        <div class="flex items-center">
-            <button data-action="click->timer#startRefreshing"
-                data-timer-target="isPaused"
-                class="mx-1 p-1 border border-green-500 rounded-full">
-                    <%= icon("fa-solid", "play", class: "text-green-500 px-2") %>
+    <% if Rails.env.development? %>
+        <div class="flex justify-between">
+            <button type="button" class="p-2 border flex items-center border-white hover:border-gray-700 rounded-full hover:shadow-md" data-reflex="click->Timer#toggle_times">
+                <span class="font-bold mx-3 text-lg"> <%= icon("fa-solid", "stopwatch") %> </span>
+                <span class=" font-semibold"> Start A Timer </span>
             </button>
 
-            <span data-timer-refresh-interval-value="1000"
-                data-timer-target="clock"
-                data-timer-time-value="0"
-                class="font-bold p-2 text-blue-500 border-white hover:border-gray-700 rounded-md hover:shadow-md">
-                    00:00
-            </span>
+            <div class="flex items-center">
+                <button data-action="click->timer#startRefreshing"
+                    data-timer-target="isPaused"
+                    class="mx-1 p-1 border border-green-500 rounded-full">
+                        <%= icon("fa-solid", "play", class: "text-green-500 px-2") %>
+                </button>
+
+                <span data-timer-refresh-interval-value="1000"
+                    data-timer-target="clock"
+                    data-timer-time-value="0"
+                    class="font-bold p-2 text-blue-500 border-white hover:border-gray-700 rounded-md hover:shadow-md">
+                        00:00
+                </span>
+            </div>
         </div>
-    </div>
+    <% end %>
 
     <div class="justify-around hidden" data-timer-target="timersList">
         <%= render(partial: "home/timer_options", locals: {}) %>
