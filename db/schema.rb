@@ -74,7 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_145707) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.jsonb "qfiles"
     t.string "quiz_file"
     t.integer "processed"
   end

@@ -17,7 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
   config.action_controller.default_url_options = {
-    host: "stimulusreflex.com"
+    host: "requiz.onrender.com"
   }
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
