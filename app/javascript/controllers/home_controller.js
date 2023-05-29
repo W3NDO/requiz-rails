@@ -1,4 +1,4 @@
-import ApplicationController from './application_controller'
+import ApplicationController from 'controllers/application_controller'
 
 export default class extends ApplicationController {
   connect () {
@@ -27,11 +27,8 @@ export default class extends ApplicationController {
       if(arr.includes("hidden")){
         this.selectionBarTarget.classList.remove("hidden")
       }else{
-        this.selectionBarTarget.classList.add("hidden")      
+        this.selectionBarTarget.classList.add("hidden")
       }
     }
   }
 }
-
-
-            
