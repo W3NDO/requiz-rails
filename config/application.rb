@@ -18,5 +18,6 @@ module ReQuiz
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+     Rails.application.config.action_dispatch.cookies_same_site_protection = :lax 
   end
 end
