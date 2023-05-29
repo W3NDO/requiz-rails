@@ -4,19 +4,29 @@
         :topics => ["Topic", ["fa-solid", "book"], "click->Home#alter_sidebar"]
     }
 %>
+<% mobile ||= false %>
 
-<div class="overflow-y-scroll nes-main">
+<div data-home-target="dropdown"
+class="lg:overflow-y-scroll nes-main hidden lg:block">
     <div class="m-1 flex justify-center">
-        <button type="button" class="w-80 nes-container is-rounded is-dark my-2 p-2 flex items-center " data-reflex="click->Application#yet_to_implement">
-            <span class="font-bold mx-3 text-lg"> <%= icon("fa-solid", "user") %> </span>
+        <button type="button" 
+        class="w-80 nes-container is-rounded is-dark my-2 p-2 flex items-center " 
+        data-reflex="click->Application#yet_to_implement"
+        >
+            <span class="font-bold mx-3 <%= "#{mobile ? 'text-md' : ' text-lg'}" %>""> <%= icon("fa-solid", "user") %> </span>
             <span class=" font-semibold"><%= "@#{current_user.handle}##{current_user.public_id}" %> </span>
         </button>
     </div>
 
     <% options.each do |option, args| %>
         <div class="m-1 flex justify-center">
-            <button type="button" class="w-80 nes-container is-rounded is-dark my-2 p-2 flex items-center" data-reflex=<%= args[2] %> data-model=<%= args[0] %> >
-                <span class="font-bold mx-3 text-lg"> <%= icon(*args[1]) %> </span>
+            <button type="button" 
+            class="w-80 nes-container is-rounded is-dark my-2 p-2 flex items-center" 
+            data-reflex=<%= args[2] %> 
+            data-model=<%= args[0] %> 
+            data-action="click->home#toggleDropdown"
+            >
+                <span class="font-bold mx-3 <%= "#{mobile ? 'text-md' : ' text-lg'}" %>"> <%= icon(*args[1]) %> </span>
                 <span class=" font-semibold"><%= option.to_s.titleize %> </span>
             </button>
         </div>

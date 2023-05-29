@@ -13,9 +13,7 @@ class QuizReflex < ApplicationReflex
   end
 
   def start_quiz
-    # load all questions
-    # load a score count
-    # sounds??
+    # TODO sounds??
     cable_ready.add_css_class(selector: "#start_btn", name: "is-disabled")
     cable_ready.set_attribute(selector: "#start_btn", name: "disabled", value: true)
     cable_ready.remove_css_class(selector: "#start_btn", name: "is-primary")
@@ -25,7 +23,6 @@ class QuizReflex < ApplicationReflex
     correct_answer_count = 0
     next_index = 1
     my_answers = []
-    # log([questions[0][:question], questions[0][:possible_answers])
     morph "#quiz_main", render(partial: "quizzes/question", locals: {
       :question => questions.first, 
       :question_count => question_count,
@@ -40,7 +37,6 @@ class QuizReflex < ApplicationReflex
 
   def check_answer
     has_next = element.dataset["order"].split(",").last != element.dataset["qid"]
-    log([element.dataset["qid"], element.dataset["order"].split(",").last])
     question = Question.find_by(id: element.dataset["qid"])
     questions = question.quiz.questions
     order = element.dataset["order"]
@@ -77,9 +73,7 @@ class QuizReflex < ApplicationReflex
         :question_count => questions.length,
         :correct_answer_count => correct_answer_count,
       })
-      # morph :nothing
     end
-    # morph :nothing
   end
 
 end

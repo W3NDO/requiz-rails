@@ -1,13 +1,36 @@
 <% timer_options = [0.1, 0.5, 1, 5, 10, 20, 30, 60] %>
 
-<ul class="" data-controller="timer">
-    <% timer_options.each do |value| %>
-        <div class="flex justify-around">
-            <span class="font-semibold"> <%= value < 1 ? "#{ (value*60).to_i } sec" : "#{ value } min" %> </span>
-            <div>
-                <button value=<%= value %> type="button" data-action="click->timer#addTime" class="rounded-lg px-2 m-1 border add-<%= value %>" data-timer-add-value=<%= value %> data-timer-target="addTime"> <%= icon("fa-solid", "plus") %> </button>
-                <button value=<%= value %> type="button" data-action="click->timer#subtractTime" class="rounded-lg px-2 m-1 border subtract-<%= value %>" data-timer-subtract-value=<%= value %> data-timer-target="subtractTime"> <%= icon("fa-solid", "minus") %> </button>
+<div class="flex justify-between">
+    <button type="button" class="p-2 border flex items-center border-white hover:border-gray-700 rounded-full hover:shadow-md" data-reflex="click->Timer#toggle_times">
+        <span class="font-bold mx-3 text-lg"> <%= icon("fa-solid", "stopwatch") %> </span>
+        <span class=" font-semibold"> Start A Timer </span>
+    </button>
+
+    <div class="flex items-center">
+        <button data-action="click->timer#startRefreshing"
+            data-timer-target="isPaused"
+            class="mx-1 p-1 border border-green-500 rounded-full">
+                <%= icon("fa-solid", "play", class: "text-green-500 px-2") %>
+        </button>
+
+        <span data-timer-refresh-interval-value="1000"
+            data-timer-target="clock"
+            data-timer-time-value="0"
+            class="font-bold p-2 text-blue-500 border-white hover:border-gray-700 rounded-md hover:shadow-md">
+                00:00
+        </span>
+    </div>
+</div>
+<div class="justify-around hidden" data-timer-target="timersList">
+    <ul class="" data-controller="timer">
+        <% timer_options.each do |value| %>
+            <div class="flex justify-around">
+                <span class="font-semibold"> <%= value < 1 ? "#{ (value*60).to_i } sec" : "#{ value } min" %> </span>
+                <div>
+                    <button value=<%= value %> type="button" data-action="click->timer#addTime" class="rounded-lg px-2 m-1 border add-<%= value %>" data-timer-add-value=<%= value %> data-timer-target="addTime"> <%= icon("fa-solid", "plus") %> </button>
+                    <button value=<%= value %> type="button" data-action="click->timer#subtractTime" class="rounded-lg px-2 m-1 border subtract-<%= value %>" data-timer-subtract-value=<%= value %> data-timer-target="subtractTime"> <%= icon("fa-solid", "minus") %> </button>
+                </div>
             </div>
-        </div>
-    <% end %>
-</ul>
+        <% end %>
+    </ul>
+</div>
