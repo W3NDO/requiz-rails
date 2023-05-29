@@ -16,8 +16,15 @@
 
 <div class="nes-container my-8 is-rounded is-dark h-72 flex-col justify-between text-yellow-500">
     <div class="w-full flex-col justify-around items-center py-8">
-        <div class="nes-main my-5 w-full flex items-center justify-around"> <span class="w-full text-center font-semibold text-xl">  Your score </span> </div>
-        <div class="my-5 w-full flex items-center justify-around"> <span class="w-full text-center nes-main text-5xl"> <span class="<%= res[1] %>"> <%= res[0] %> </span> <%= "#{ score } % "%> </span> </div>
+        <div class="nes-main my-5 w-full flex items-center justify-around"> 
+            <span class="w-full text-center font-semibold text-xl">  Your score </span> 
+        </div>
+        <div class="my-5 w-full flex items-center justify-around"> 
+            <span class="w-full text-center nes-main text-5xl <%= res[1] %>"> <%= res[0] %> </span> 
+        </div>
+        <div class="my-5 w-full flex items-center justify-around"> 
+            <span class="w-full text-center nes-main text-2xl"> <%= "#{ score }% "%> </span> 
+        </div>
     </div>
     <div class="w-full flex itmes-center justify-between">
     </div>

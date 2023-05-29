@@ -1,14 +1,34 @@
-<div class="w-full max-h-screen grid grid-cols-6 grid-rows-6">
+<div class="lg:my-5 w-full overflow-x-hidden max-h-screen lg:grid grid-cols-6 grid-rows-6 flex-col">
     
-    <aside class="mx-2 row-start-1 row-end-7 col-start-1 col-end-3 grid grid-rows-6 overflow-y-scroll max-h">
-        
+    <div class="lg:hidden w-full flex-col" data-controller="home">
+        <div class="w-full flex justify-around">
+            <button 
+            class="p-3" 
+            type="button" 
+            data-home-target ="toggleBtn"
+            data-action="click->home#toggleDropdown">
+                <span class="text-3xl"> <%= icon("fa-solid", "bars") %> </span> 
+            </button>
+        </div>
+        <div>
+            <%= render(partial: "home/side_options", locals:{mobile: true}) %>
+        </div>
+
+        <div id="selection_bar">
+            <%= render(partial: "home/selection_bar", locals: {model: "quiz", mobile: true}) %>
+        </div>
+    </div>
+
+    <aside class="hidden mx-2 lg:row-start-1 lg:row-end-7 lg:col-start-1 lg:col-end-3 
+                lg:grid grid-rows-6 overflow-y-scroll max-h">
+
         <div data-controller="timer" class="nes-container is-rounded row-start-1 row-end-3 border border-gray-500 my-5 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
-            <%=  render(partial: "home/side_options") %>
+            <%=  render(partial: "home/side_options", locals:{mobile: false}) %>
         </div>
 
         <div class="my-5 nes-container is-rounded row-start-3 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 p-2 overflow-y-scroll">
             <div id="selection_bar">
-                <%= render(partial: "home/selection_bar", locals: {model: "quiz"}) %>
+                <%= render(partial: "home/selection_bar", locals: {model: "quiz", mobile: false}) %>
             </div>
 
             <div id="currentFocus">
@@ -19,7 +39,7 @@
     </aside>
 
     <div id="main_container" 
-        class="mx-2 nes-container is-rounded row-start-1 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-7">
+        class="lg:mx-2 nes-container is-rounded lg:row-start-1 lg:row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-7">
     </div>
 
     <% if Rails.env.development? %>

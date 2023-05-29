@@ -1,19 +1,22 @@
-<div class="nes-container with-title is-rounded">
-  <span class="title nes-main"><%= quiz.title.titleize %></span>
+<div class="lg:nes-container lg:with-title lg:is-rounded items-center">
+  <span class="title nes-main w-full text-center lg:block"><%= quiz.title.titleize %></span>
   <div class="flex-row items-end w-full">
     <span id="counter" class="font-semibold nes-main"></span>
   </div>
 
-  <div id="quiz_main">
+  <div id="quiz_main" class="w-full lg:m-2">
   </div>
-  <% unless quiz.questions.empty? %>
-    <%= button_tag(type: "button", id: "start_btn", data: {
-        reflex: "click->Quiz#start_quiz", id: quiz.id
-      }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-primary"} ") do %>
-        <%= icon("fa-solid", "play") %>
-        <span class="font-semibold"> Start Quiz </span>
+
+  <div class="w-full flex justify-around mb-2">
+    <% unless quiz.questions.empty? %>
+      <%= button_tag(type: "button", id: "start_btn", data: {
+          reflex: "click->Quiz#start_quiz", id: quiz.id
+        }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-success"} ") do %>
+          <%= icon("fa-solid", "play") %>
+          <span class="font-semibold"> Start Quiz </span>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
   
   <div class="w-full flex justify-around">
     <%= button_tag(type: "button", data: {
