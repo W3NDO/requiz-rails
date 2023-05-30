@@ -21,6 +21,7 @@ module.exports = {
       'testGreen': '#94cc44',
       'flashBlue': '#2596be',
       'flashYellow': '#F7D51D',
+      'red': colors.red,
       'black': colors.black,
       'white': colors.white,
       'gray': colors.gray,
