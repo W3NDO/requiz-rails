@@ -1,5 +1,7 @@
 # ReQuiz
 
+Temporarily hosted on render at [requiz.onrender.com](requiz.onrender.com)
+
 ## Main Requirements:
 
 - [x] Users can sign up and also sign in.
