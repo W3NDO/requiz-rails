@@ -17,7 +17,7 @@ class ScheduleQuizFileProcessingJob < ApplicationJob
           :tag => quiz.tag
         }
         new_flashcard = {
-          :question => row[0]
+          :question => row[0],
           :answer => row[-1].chomp,
           :quiz_id => quiz.id,
           :tag => quiz.tag 

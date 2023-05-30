@@ -18,8 +18,8 @@
     <% end %>
 
     <% unless quiz.questions.empty? %>
-      <%= button_tag(type: "button", id: "start_btn", data: {
-          reflex: "click->Quiz#start_flash_session", id: quiz.id
+      <%= button_tag(type: "button", id: "flash_btn", data: {
+          reflex: "click->Flashcard#start_flash_session", id: quiz.id
         }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-warning"} ") do %>
           <%= icon("fa-solid", "bolt-lightning") %>
           <span class="font-semibold"> Flash Session </span>

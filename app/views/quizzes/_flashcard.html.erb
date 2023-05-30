@@ -1,5 +1,29 @@
-<div class="nes-container my-8 is-rounded is-dark h-fit lg:h-72 flex-col justify-between">
-    <div class="w-full flex justify-around items-center py-8">
-        <span class="w-full font-semibold text-3xl text-center"> <%= question.question %> </span>
-    </div>
+<% color = ["bg-flashYellow", "bg-flashBlue", "bg-testGreen"] %>
+<% total_cards = flashcards.length %>
+
+<div class="relative" data-controller="flashcard">
+    <span class="hidden" data-flashcard-target="index">1</span>
+    <% flashcards.each_with_index do |flashcard, idx| %>
+        <div class="flashcards <%= idx != 0 ? "hidden" : "" %> p-5 my-8 h-fit flex-col justify-between border-8 rounded-2xl bg-opacity-100 <%= "#{color.sample}" %>">
+            <div class="w-full flex justify-around items-center py-8">
+                <span class="w-full font-semibold text-3xl text-center"> <%= flashcard.question %> </span>
+            </div>
+            <div class="w-full flex justify-around items-center py-8">
+                <span class="w-full text-white font-semibold text-4xl text-center"> <%= flashcard.answer %> </span>
+            </div>
+        </div>
+    <% end %>
+
+    <button 
+        type="button" 
+        class="absolute top-1/2 p-2 bg-gray-300" 
+        data-action="click->flashcard#previousFlashcard"> 
+        <%= icon("fa-solid", "arrow-left") %> 
+    </button>
+    <button 
+        type="button" 
+        class="absolute top-1/2 p-2 right-0 bg-gray-300" 
+        data-action="click->flashcard#nextFlashcard"> 
+        <%= icon("fa-solid", "arrow-right") %> 
+    </button>
 </div>

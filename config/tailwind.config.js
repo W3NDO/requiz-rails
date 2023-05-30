@@ -1,4 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
@@ -14,6 +15,17 @@ module.exports = {
       'lg': '1024px',
       'xl': '1280px',
       '2xl': '1536px',
+    },
+    colors: {
+      'quizYellow': '#FFD200',
+      'testGreen': '#94cc44',
+      'flashBlue': '#2596be',
+      'flashYellow': '#F7D51D',
+      'black': colors.black,
+      'white': colors.white,
+      'gray': colors.gray,
+      'emerald': colors.emerald,
+      'indigo': colors.indigo,
     },
     minHeight:{
       '4/5': '80%',
