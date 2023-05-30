@@ -13,7 +13,16 @@
           reflex: "click->Quiz#start_quiz", id: quiz.id
         }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-success"} ") do %>
           <%= icon("fa-solid", "play") %>
-          <span class="font-semibold"> Start Quiz </span>
+          <span class=" font-semibold"> Start Quiz </span>
+      <% end %>
+    <% end %>
+
+    <% unless quiz.questions.empty? %>
+      <%= button_tag(type: "button", id: "flash_btn", data: {
+          reflex: "click->Flashcard#start_flash_session", id: quiz.id
+        }, class: "nes-btn #{quiz.questions.empty? ? "is-disabled disabled" : "is-warning"} ") do %>
+          <%= icon("fa-solid", "bolt-lightning") %>
+          <span class="font-semibold"> Flash Session </span>
       <% end %>
     <% end %>
   </div>

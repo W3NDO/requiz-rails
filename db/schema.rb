@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_27_145707) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_194703) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,6 +52,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_145707) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "flashcards", force: :cascade do |t|
+    t.string "question"
+    t.string "tag"
+    t.string "answer"
+    t.integer "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -74,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_27_145707) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.jsonb "qfiles"
     t.string "quiz_file"
     t.integer "processed"
   end

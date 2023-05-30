@@ -3,8 +3,11 @@ require 'csv'
 include QuizzesHelper
   after_save :schedule_process_job
   validate :acceptable_file
+  
   has_many :questions
+  has_many :flashcards
   belongs_to :user
+  
   has_one_attached :quiz_file
   enum :processed, [:analyzed], default: :not_analyzed
 

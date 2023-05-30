@@ -4,7 +4,8 @@ class ScheduleQuizFileProcessingJob < ApplicationJob
   def perform(quiz)
     # Do something later
     pp "Building Questions for Quiz: #{quiz.title}"
-    objects_to_save = []
+    questions_to_save = []
+    flashcards_to_save = []
     quiz.quiz_file.attachment.open do |file|
       CSV.parse(file, headers: false) do |row|
         row = row.to_csv.split(",")
@@ -15,13 +16,20 @@ class ScheduleQuizFileProcessingJob < ApplicationJob
           :quiz_id => quiz.id,
           :tag => quiz.tag
         }
-        objects_to_save << new_question
+        new_flashcard = {
+          :question => row[0],
+          :answer => row[-1].chomp,
+          :quiz_id => quiz.id,
+          :tag => quiz.tag 
+        }
+        questions_to_save << new_question
+        flashcards_to_save << new_flashcard
 
       end
     end
-    if Question.insert_all(objects_to_save)
+    if Question.insert_all(questions_to_save) and Flashcard.insert_all(flashcards_to_save)
       quiz.analyzed!
-      pp "Quiz: #{quiz.title}  has been analyzed and the questions have been prepared."
+      pp "Quiz: #{quiz.title}  has been analyzed and the questions and flashcards have been prepared."
     end
   end
 end
