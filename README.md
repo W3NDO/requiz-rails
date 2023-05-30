@@ -1,6 +1,6 @@
 # ReQuiz
 
-Temporarily hosted on render at [requiz.onrender.com](requiz.onrender.com)
+Temporarily hosted on render at [requiz.onrender.com](https://requiz.onrender.com/)
 
 ## Main Requirements:
 
