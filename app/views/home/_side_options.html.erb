@@ -1,7 +1,8 @@
 <%
     options = {
         :quizzes => ["Quiz", ["fa-solid", "school"], "click->Home#alter_sidebar"],
-        :topics => ["Topic", ["fa-solid", "book"], "click->Home#alter_sidebar"]
+        :topics => ["Topic", ["fa-solid", "book"], "click->Home#alter_sidebar"],
+        :documentation => ["Documentation", ["fa-solid", "file-lines" ],"click->Docs#show_docs" ]
     }
 %>
 <% mobile ||= false %>

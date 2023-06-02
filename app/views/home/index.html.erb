@@ -14,7 +14,7 @@
             <%= render(partial: "home/side_options", locals:{mobile: true}) %>
         </div>
 
-        <div id="selection_bar">
+        <div id="selection_bar_mobile">
             <%= render(partial: "home/selection_bar", locals: {model: "quiz", mobile: true}) %>
         </div>
     </div>
@@ -39,7 +39,7 @@
     </aside>
 
     <div id="main_container" 
-        class="lg:mx-2 nes-container is-rounded lg:row-start-1 lg:row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-7">
+        class="overflow-y-scroll lg:overflow-auto lg:mx-2 nes-container is-rounded lg:row-start-1 lg:row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-7">
     </div>
 
     <% if Rails.env.development? %>
