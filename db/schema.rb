@@ -85,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_172157) do
     t.integer "user_id"
     t.string "quiz_file"
     t.integer "processed"
+    t.boolean "has_flashcards"
   end
 
   create_table "subtopics", force: :cascade do |t|
