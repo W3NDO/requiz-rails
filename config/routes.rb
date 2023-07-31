@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
-  get 'docs/index'
+  
   # resources :questions
-  resources :quizzes
-  get '/kshn', to: "kshn#index"
   # resources :notes
-  resource :example, constraints: -> { Rails.env.development? }
+  resources :quizzes
+  
+  get '/kshn', to: "kshn#index"
+  get 'docs/index'
   get 'home/index'
+  
   devise_for :users, :controllers => { registrations: 'users/registrations' }
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
+  
   root "home#index"
+
+  namespace :api do
+    scope :v1 do
+      mount_devise_token_auth_for 'User', at: 'auth'
+    end
+  end
 end
