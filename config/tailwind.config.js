@@ -37,6 +37,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans2: ['Nunito Sans'],
+        sans3: ['Raleway'],
+        monospace: ['IBM Plex Mono'],
         serif: ['Montserrat'],
       },
       keyframes: {

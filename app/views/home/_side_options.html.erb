@@ -10,25 +10,27 @@
 <div data-home-target="dropdown"
 class="lg:overflow-y-scroll nes-main hidden lg:block">
     <div class="m-1 flex justify-center">
-        <button type="button" 
-        class="w-80 nes-container is-rounded is-dark my-2 p-2 flex items-center " 
+        <button type="button"
+        class="w-80 font-sans3 is-rounded font-bold text-center text-white is-dark my-1 p-2 flex items-center bg-flashBlue rounded-xl"
         data-reflex="click->Application#yet_to_implement"
         >
-            <span class="font-bold mx-3 <%= "#{mobile ? 'text-md' : ' text-lg'}" %>""> <%= icon("fa-solid", "user") %> </span>
-            <span class=" font-semibold"><%= "@#{current_user.handle}##{current_user.public_id}" %> </span>
+            <span class="text-xl font-bold mx-3 <%= "#{mobile ? 'text-md' : ' text-lg'}" %>""> <%= icon("fa-solid", "user") %> </span>
+            <span class="text-xl font-bold"><%= "@#{current_user.handle}##{current_user.public_id}" %> </span>
         </button>
     </div>
 
     <% options.each do |option, args| %>
         <div class="m-1 flex justify-center">
-            <button type="button" 
-            class="w-80 nes-container is-rounded is-dark my-2 p-2 flex items-center" 
-            data-reflex=<%= args[2] %> 
-            data-model=<%= args[0] %> 
+            <button type="button"
+            class="active:bg-testGreen w-80 font-sans3 is-rounded font-bold text-center text-white items-center bg-flashBlue rounded-xl my-1 p-2 flex"
+            data-reflex=<%= args[2] %>
+            data-model=<%= args[0] %>
             data-action="click->home#toggleDropdown"
             >
-                <span class="font-bold mx-3 <%= "#{mobile ? 'text-md' : ' text-lg'}" %>"> <%= icon(*args[1]) %> </span>
-                <span class=" font-semibold"><%= option.to_s.titleize %> </span>
+                <span class="text-center">
+                    <span class="text-xl font-bold mx-3 <%= "#{mobile ? 'text-md' : ' text-lg'}" %>"> <%= icon(*args[1]) %> </span>
+                    <span class="text-xl font-bold"><%= option.to_s.titleize %> </span>
+                </span>
             </button>
         </div>
     <% end %>

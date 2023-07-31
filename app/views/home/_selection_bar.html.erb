@@ -3,20 +3,20 @@
 
 <div class="overflow-y-scroll">
     <div class="flex justify-between border-b-2 border-gray-500 p-2 sticky"> <!-- TODO make this sticky -->
-        <button type="button" class="nes-btn is-primary" data-action="click->home#toggleSelectionBar" >
-            <span class="font-bold"> <%= "My #{model.pluralize.titleize}"%> </span>
+        <button type="button" class="active:bg-testGreen w-80 font-sans3 is-rounded font-bold text-center text-white items-center bg-flashBlue rounded-xl my-1 mx-2 p-2 flex" data-action="click->home#toggleSelectionBar" >
+            <span class="font-bold text-center w-full font-bold"> <%= "My #{model.pluralize.titleize}"%> </span>
         </button>
-        <%= button_tag(type: "button", data: { reflex:"click->HomeReflex#new_object_view", partial_path: "#{model.pluralize.downcase}/form", model: model.singularize }, class: "nes-btn is-primary") do %>
-            <span class="text-white font-semibold flex justify-around"> <%= "+ Add a new" %> </span>
+        <%= button_tag(type: "button", data: { reflex:"click->HomeReflex#new_object_view", partial_path: "#{model.pluralize.downcase}/form", model: model.singularize }, class: "mx-2 active:bg-testGreen w-80 font-sans3 is-rounded font-bold text-center text-white items-center bg-flashBlue rounded-xl my-1 p-2 flex") do %>
+            <span class="text-white text-center w-full font-bold flex justify-around"> <%= "+ Add a new" %> </span>
         <% end %>
     </div>
     <div data-home-target="selectionBar" class="lg:not-mobile"> <!-- because tailwind is mobile first, this action will only happen on screens smaller than the lg breakpoint -->
         <% unless model_options.empty? %>
             <% model_options.each do |option| %>
                 <div class="m-1 flex justify-center">
-                    <%= button_tag(class: "w-72 nes-btn is-primary", type: "button", data: { 
-                        reflex: "click->HomeReflex#focus_on_new_option", 
-                        id: option.id, 
+                    <%= button_tag(class: "w-72 active:bg-testGreen w-80 font-sans3 is-rounded font-bold text-center text-white items-center bg-flashBlue rounded-xl my-1 p-2 flex", type: "button", data: {
+                        reflex: "click->HomeReflex#focus_on_new_option",
+                        id: option.id,
                         model: model.downcase,
                         action:"click->home#toggleSelectionBar"
                         }) do %>
