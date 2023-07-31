@@ -23,6 +23,13 @@ class HomeReflex < ApplicationReflex
           :model => model.singularize,
         }
       )
+      morph "#selection_bar_mobile", render(
+        partial: "home/selection_bar",
+        locals: {
+          :model => model.singularize,
+          :mobile => true
+        }
+      )
       morph "#main_container", render(
         partial: "#{model.pluralize.downcase}/#{model.downcase}",
         locals:{
@@ -33,6 +40,7 @@ class HomeReflex < ApplicationReflex
     else
       show_notification("There was an Error creating the new #{model.titleize}", is_error = true)
       morph "#selection_bar", "#{object.errors.full_messages}"
+      morph "#selection_bar_mobile", "#{object.errors.full_messages}"
     end
     # morph :nothing
   end
@@ -52,6 +60,7 @@ class HomeReflex < ApplicationReflex
   def alter_sidebar
     model = element.dataset[:model]
     morph "#selection_bar", render(partial: "home/selection_bar", locals:{model: model})
+    morph "#selection_bar_mobile", render(partial: "home/selection_bar", locals:{model: model, mobile: true})
   end
 
   private
