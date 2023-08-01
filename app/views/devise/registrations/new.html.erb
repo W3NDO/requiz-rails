@@ -1,42 +1,51 @@
-<div class ="flex flex-col border px-5 py-2 rounded border-gray-300 items-center shadow-md shadow-gray-400" >
-  <h2 class="mb-5 text-lg font-bold">Sign Up</h2>
-
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= render "devise/shared/error_messages", resource: resource %>
-
-    <div class="field flex flex-col items-center mb-5">
-      <%= f.label :email %> 
-      <%= f.email_field :email, placeholder: "email@example.com", autofocus: true, autocomplete: "email", class: "rounded" %>
+<div class="flex flex-col md:grid grid-cols-6 w-full h-screen bg-gradient-to-tr from-testGreen to-flashBlue m-0">
+    <div class="md:col-start-1 md:col-end-5">
+        <%= render(partial: "devise/shared/landing_cta", locals: {} ) %>
     </div>
 
-    <div class="field flex flex-col items-center mb-5">
-      <%= f.label :full_name %> 
-      <%= f.text_field :full_name, placeholder: "Your Name", autofocus: true, class: "rounded" %>
-    </div>
+    <div class ="overflow-y-scroll align-middle md:col-start-5 md:col-end-7 flex flex-col py-2 px-5 rounded md:border-l border-gray-300 items-center shadow-md shadow-gray-400" >
+        <div class="flex flex-col justify-around m-auto">
+            <div>
+                <h2 class="text-center mb-5 text-lg font-bold">Sign Up for ReQuiz</h2>
+            </div>
 
-    <div class="field flex flex-col items-center mb-5">
-      <%= f.label :username %>
-      <em>(only alphanumeric characters[a-z0-9] and underscores(_) allowed.)</em> 
-      <%= f.text_field :handle, placeholder: "example_username" , autofocus: true, class: "rounded" %>
-    </div>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="field flex flex-col items-center mb-5">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %> 
-      <%= f.password_field :password, autocomplete: "new-password", class: "rounded" %>
-    </div>
+            <div class="field flex flex-col items-center mb-2">
+              <%= f.label :email %>
+              <%= f.email_field :email, placeholder: "email@example.com", autocomplete: "email", class: "rounded-xl" %>
+            </div>
 
-    <div class="field flex flex-col items-center mb-5">
-      <%= f.label :password_confirmation %> 
-      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "rounded" %>
-    </div>
+            <div class="field flex flex-col items-center mb-2">
+              <%= f.label :full_name %>
+              <%= f.text_field :full_name, placeholder: "Your Name", autofocus: true, class: "rounded-xl" %>
+            </div>
 
-    <div class="actions flex justify-around">
-      <%= f.submit "Sign up", class: "bg-blue-500 p-2 rounded m-2"  %>
-    </div>
-  <% end %>
+            <div class="field flex flex-col items-center mb-2">
+              <%= f.label :username %>
+              <%= f.text_field :handle, placeholder: "example_username" , autofocus: true, class: "rounded-xl" %>
+            </div>
 
-  <%= render "devise/shared/links" %>
+            <div class="field flex flex-col items-center mb-2">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <% end %>
+              <%= f.password_field :password, autocomplete: "new-password", class: "rounded-xl" %>
+            </div>
+
+            <div class="field flex flex-col items-center mb-2">
+              <%= f.label :password_confirmation %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "rounded-xl" %>
+            </div>
+
+            <div class="actions flex justify-around mb-0">
+              <%= f.submit "Sign up", class: "bg-flashBlue font-serif font-bold text-white w-full p-2 rounded-xl m-2"  %>
+            </div>
+          <% end %>
+
+          <%= render "devise/shared/links" %>
+        </div>
+    </div>
 </div>
