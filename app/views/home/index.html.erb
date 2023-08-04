@@ -1,4 +1,4 @@
-<div class="lg:my-5 w-full overflow-x-hidden max-h-screen lg:grid grid-cols-6 grid-rows-6 flex-col">
+<div class="lg:my-5 w-full overflow-x-hidden max-h-screen lg:grid grid-cols-10 grid-rows-6 flex-col">
     
     <div class="lg:hidden w-full flex-col" data-controller="home">
         <div class="w-full flex justify-around">
@@ -20,13 +20,15 @@
     </div>
 
     <aside class="hidden mx-2 lg:row-start-1 lg:row-end-7 lg:col-start-1 lg:col-end-3 
-                lg:grid grid-rows-6 overflow-y-scroll max-h">
+                lg:grid grid-rows-6 overflow-y-scroll">
 
-        <div data-controller="timer" class="nes-container is-rounded row-start-1 row-end-3 border border-gray-500 my-5 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
+        <div 
+            data-controller="timer" 
+            class="row-start-1 row-end-3 border border-gray-500 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
             <%=  render(partial: "home/side_options", locals:{mobile: false}) %>
         </div>
 
-        <div class="my-5 nes-container is-rounded row-start-3 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 p-2 overflow-y-scroll">
+        <div class="row-start-3 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 p-2 overflow-y-scroll">
             <div id="selection_bar">
                 <%= render(partial: "home/selection_bar", locals: {model: "quiz", mobile: false}) %>
             </div>
@@ -39,7 +41,7 @@
     </aside>
 
     <div id="main_container" 
-        class="overflow-y-scroll lg:overflow-auto lg:mx-2 nes-container is-rounded lg:row-start-1 lg:row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-7">
+        class="overflow-y-scroll lg:overflow-auto lg:mx-2 lg:row-start-1 lg:row-end-7 border  border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-11">
     </div>
 
     <% if Rails.env.development? %>

@@ -1,7 +1,7 @@
 class Quiz < ApplicationRecord
 require 'csv'
 include QuizzesHelper
-  after_save :schedule_process_job
+  after_commit :schedule_process_job
   validate :acceptable_file
   
   has_many :questions
