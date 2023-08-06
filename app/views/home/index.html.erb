@@ -1,74 +1,32 @@
-<div class="lg:my-5 w-full overflow-x-hidden max-h-screen lg:grid grid-cols-10 grid-rows-6 flex-col">
-    
-    <div class="lg:hidden w-full flex-col" data-controller="home">
-        <div class="w-full flex justify-around">
-            <button 
-            class="p-3" 
-            type="button" 
-            data-home-target ="toggleBtn"
-            data-action="click->home#toggleDropdown">
-                <span class="text-3xl"> <%= icon("fa-solid", "bars") %> </span> 
-            </button>
-        </div>
-        <div>
-            <%= render(partial: "home/side_options", locals:{mobile: true}) %>
-        </div>
+<% menu_options = { :home => "", :quiz => "", :flashcards => "", :my_tags => "" }%>
 
-        <div id="selection_bar_mobile">
-            <%= render(partial: "home/selection_bar", locals: {model: "quiz", mobile: true}) %>
-        </div>
-    </div>
-
-    <aside class="hidden mx-2 lg:row-start-1 lg:row-end-7 lg:col-start-1 lg:col-end-3 
-                lg:grid grid-rows-6 overflow-y-scroll">
-
-        <div 
-            data-controller="timer" 
-            class="row-start-1 row-end-3 border border-gray-500 flex flex-col p-2 rounded-md shadow-md shadow-gray-500">
-            <%=  render(partial: "home/side_options", locals:{mobile: false}) %>
-        </div>
-
-        <div class="row-start-3 row-end-7 border border-gray-500 rounded-md shadow-md shadow-gray-500 p-2 overflow-y-scroll">
-            <div id="selection_bar">
-                <%= render(partial: "home/selection_bar", locals: {model: "quiz", mobile: false}) %>
-            </div>
-
-            <div id="currentFocus">
-                <input type="hidden" value="" />
+<div class="bg-gradient-to-tr cursor-default from-flashBlue to-testGreen h-screen w-full overflow-hidden max-h-screen lg:grid grid-cols-7 grid-rows-7">
+    <nav class=" w-full flex flex-col md:flex-row justify-between col-start-1 col-end-8">
+        <div id="logo" class="w-full">
+            <div class="w-full bg-gradient-to-r from-gray-500 to-transparent px-2">
+                <%= image_tag("logo_dark", size: 35, class: "md:py-2")%>
             </div>
         </div>
 
+        <div id="menu_list" class="w-full ">
+            <ul class="w-full md:py-2 flex flex-col md:flex-row justify-around bg-gradient-to-l from-gray-500 to-transparent">
+                <% menu_options.each do |option, action| %>
+                    <li> 
+                        <%= button_tag(type="button", class: "cursor-pointer") do %>
+                            <span class="font-sans3 text-2xl font-bold"> <%= option.to_s.titleize %> </span>
+                        <% end %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    </nav>
+
+    <aside id="focus_nav"> <!-- Hidden unless there is a quiz, flashcard, or notes set in focus-->
+        <!-- Needs a close button and an open button? -->
     </aside>
 
-    <div id="main_container" 
-        class="overflow-y-scroll lg:overflow-auto lg:mx-2 lg:row-start-1 lg:row-end-7 border  border-gray-500 rounded-md shadow-md shadow-gray-500 col-start-3 col-end-11">
+    <div id="main_content"> <!-- This is where we render all the content -->
+
     </div>
 
-    <% if Rails.env.development? %>
-        <div class="flex justify-between w-full col-start-1 col-end-7">
-            <%= button_tag "test normal dialog",
-                type: "button",
-                data: {
-                    reflex: "click->Shared::NotificationModalReflex#show_dialog",
-                    partial_path: "topics/form",
-                    sub_locals: {
-                        model: "topic"
-                        }
-                    },
-                class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" %>
-            <%= button_tag "test confirm dialog", 
-                type: "button", 
-                data: { 
-                    reflex: "click->Shared::NotificationModalReflex#show_confirmation_dialog" 
-                }, 
-                class: "m-2 p-2 bg-blue-600 text-white font-semibold rounded-lg" 
-            %>
-        </div>
-    <% end %>
 </div>
-
-<style>
-  .nes-main{
-    font-family: "Press Start 2P";
-  }
-</style>
