@@ -10,3 +10,4 @@ Temporarily hosted on render at [requiz.onrender.com](https://requiz.onrender.co
 - [ ] Users can start pomodoro timers to help them study
 - [x] Users can create or upload quizes on the topic. 
 - [x] Users can have multiple topics
+- [ ] User should be able to play their notes as audio. 
