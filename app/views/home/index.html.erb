@@ -1,28 +1,38 @@
-<% menu_options = { :home => "", :quiz => "", :flashcards => "", :my_tags => "" } %>
+<% menu_options = { 
+    :home => {
+        :data => {}
+    }, 
+    :quizzes => {
+        :data => {}
+    },  
+} %>
 
-<div class="bg-gradient-to-l cursor-default from-flashBlue to-black h-screen w-full overflow-hidden max-h-screen lg:grid grid-cols-7 grid-rows-7">
+<div class="bg-gradient-to-l cursor-default from-flashBlue to-black h-screen w-full overflow-hidden max-h-screen md:grid md:grid-cols-7 md:grid-rows-6">
     <nav class=" w-full flex flex-col md:flex-row justify-around col-start-1 col-end-8">
-        <div id="logo" class="w-full">
-            <div class="w-full px-2 flex justify-around">
-                <%= image_tag("logo_dark", size: "100x35", class: "md:py-2")%>
+        <div id="logo" class="w-full h-4/5 m-auto">
+            <div class="w-full h-full flex md:justify-start justify-start items-start">
+                <%= image_tag("logo_dark", class: "object-contain md:mx-2 md:my-auto md:py-2 h-full")%>
             </div>
         </div>
 
-        <div id="menu_list" class="w-full ">
-            <ul class="w-full md:py-2 flex flex-col md:flex-row justify-around">
+        <div id="menu_list" class="w-full mx-auto">
+            <ul class="w-full md:py-2 flex flex-col md:flex-row justify-around items-end">
                 <% menu_options.each do |option, action| %>
                     <li> 
-                        <%= button_tag(type="button", class: "cursor-pointer w-full") do %>
-                            <span class="font-sans3 text-white text-2xl font-bold"> <%= option.to_s.titleize %> </span>
-                        <% end %>
+                        <%= link_to "#{option.to_s.titleize}", root_path(focus: option.to_s.singularize), class: "#{params[:focus] == option.to_s.singularize ? "border-b" : ""} ease-in-out duration-250 my-2 p-2 text-2xl text-white hover:text-white hover:no-underline hover:border-b visited:white mx-3 cursor-pointer w-full" %>
                     </li>
                 <% end %>
             </ul>
         </div>
     </nav>
 
-    <div id="main_content" class="w-full col-start-1 col-end-8 row-start-2 row-end-4"> <!-- This is where we render all the content -->
-        <%= render(partial: "home/landing", locals: {}) %>
+    <div id="main_container" class="w-full h-fit mx-auto col-start-2 col-end-7"> <!-- This is where we render all the content -->
+        <!-- Alter focus with query params -->
+        <% if params[:focus] == "quiz" %>
+            <%= render( partial: "quizzes/landing", locals:{ :quizzes => current_user.quizzes } ) %>    
+        <% else %>
+            <%= render(partial: "home/landing", locals: {}) %>
+        <% end %>
     </div>
 
 </div>

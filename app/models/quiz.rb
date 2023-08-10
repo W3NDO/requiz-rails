@@ -15,6 +15,14 @@ include QuizzesHelper
     return self.questions.map{ |q| {:id=> q.id, :question => q.question, :possible_answers => q.possible_answers} }
   end
 
+  def get_tags()
+    self.tag.split(",")
+  end
+
+  def has_flashcards?
+    !self.has_flashcards.nil?
+  end
+
   private
   def acceptable_file
     pp "LOG ==> Success attached" unless quiz_file.attached?
