@@ -7,16 +7,16 @@
     },  
 } %>
 
-<div class="bg-gradient-to-l cursor-default from-flashBlue to-black h-screen w-full overflow-hidden max-h-screen md:grid md:grid-cols-7 md:grid-rows-6">
-    <nav class=" w-full flex flex-col md:flex-row justify-around col-start-1 col-end-8">
-        <div id="logo" class="w-full h-4/5 m-auto">
+<div class="bg-gradient-to-l cursor-default from-flashBlue  to-black h-screen w-full overflow-hidden max-h-screen md:grid md:grid-cols-7 md:grid-rows-6">
+    <nav class=" w-full flex flex-col md:flex-row justify-around col-start-1 col-end-8 border-b">
+        <div id="logo" class="w-full h-4/5  m-auto">
             <div class="w-full h-full flex md:justify-start justify-start items-start">
-                <%= image_tag("logo_dark", class: "object-contain md:mx-2 md:my-auto md:py-2 h-full")%>
+                <span class="text-white font-logo text-5xl px-10 py-2 mx-5">  ReQuiz </span>
             </div>
         </div>
 
-        <div id="menu_list" class="w-full mx-auto">
-            <ul class="w-full md:py-2 flex flex-col md:flex-row justify-around items-end">
+        <div id="menu_list" class="w-full h-4/5  m-auto">
+            <ul class="w-full md:py-2 flex flex-col md:my-auto md:flex-row justify-end items-end">
                 <% menu_options.each do |option, action| %>
                     <li> 
                         <%= link_to "#{option.to_s.titleize}", root_path(focus: option.to_s.singularize), class: "#{params[:focus] == option.to_s.singularize ? "border-b" : ""} ease-in-out duration-250 my-2 p-2 text-2xl text-white hover:text-white hover:no-underline hover:border-b visited:white mx-3 cursor-pointer w-full" %>
@@ -28,8 +28,11 @@
 
     <div id="main_container" class="w-full h-fit mx-auto col-start-2 col-end-7"> <!-- This is where we render all the content -->
         <!-- Alter focus with query params -->
-        <% if params[:focus] == "quiz" %>
-            <%= render( partial: "quizzes/landing", locals:{ :quizzes => current_user.quizzes } ) %>    
+        <% case params[:focus] %>
+            <% when "quiz" %>
+                <%= render( partial: "quizzes/landing", locals:{ :quizzes => current_user.quizzes } ) %>
+            <% when "quiz_new" %>
+                <%= render( partial: "quizzes/form", locals:{ } ) %>
         <% else %>
             <%= render(partial: "home/landing", locals: {}) %>
         <% end %>

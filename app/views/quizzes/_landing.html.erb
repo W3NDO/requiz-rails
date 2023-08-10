@@ -1,16 +1,17 @@
 <div class="w-full h-screen m-auto flex flex-col">
-  <div class="w-full flex justify-start">
-    <%= button_tag(type: "button", id: "new_quiz", data: {
-        reflex: "click->Quiz#start_quiz",
-      }, class: "px-2 text-sm m-2 rounded-sm bg-blue-30 border-white rounded-md flex") do %>
+  <% unless quizzes.empty? %>
+    <div class="w-full flex justify-start">
+      <%= link_to(root_path(focus: "quiz_new"), class: "px-2 text-sm m-2 rounded-sm bg-blue-30 border-white rounded-md flex") do %>
         <span class=" border-white rounded"> 
-          <%= icon("fa-solid", "plus", class: "text-white") %>
-          <span class="font-semibold text-white"> New Quiz </span>
+            <%= icon("fa-solid", "plus", class: "text-white") %>
+            <span class="font-semibold text-white"> New Quiz </span>
         </span>
-    <% end %>
-  </div>
+      <% end %>
+   </div>
+  <% end %>
   <div id="quizzes" class="w-full h-5/6 mx-auto md:mx-5 overflow-y-scroll">
-    <% quizzes.each do |quiz| %>
+    <% unless quizzes.empty? %>
+      <% quizzes.each do |quiz| %>
       <div class="w-full flex flex-row justify-between p-2 bg-gray-300 rounded-sm my-2">
         <div class="w-full">
           <span class="text-xl font-semibold"> <%= quiz.title %> </span>
@@ -51,6 +52,11 @@
             </div>
           </div>
       </div>
+      <% end %>
+    <% else %>
+        <div class="w-full m-auto flex justify-center">
+          <%= render(partial: "quizzes/form", locals: {}) %>
+        </div>
     <% end %>
     <div class="my-10"></div>
 

@@ -1,28 +1,30 @@
 <% is_edit ||= false %>
 <% quiz = is_edit ?  object : Quiz.new %>
 
-<div class ="grid place-items-center border py-2 px-5 rounded border-gray-300 items-center shadow-md shadow-gray-400" >
-  <h2 class="mb-5 text-lg font-bold">New Quiz</h2>
+<div class ="mt-5 grid place-items-center border py-2 px-5 rounded border-gray-300 items-center shadow-md shadow-gray-400" >
+  <h2 class="mb-5 text-2xl text-white font-semibold">Create A New Quiz</h2>
 
   <%= form_with(model: quiz, multipart: true) do |form| %>
     <div class="field flex flex-col items-center mb-5">
-      <%= form.label :title %>
+      <%= form.label :title, class: "text-white font-semibold" %>
+      <span class="italic text-sm text-white text-center"> ( This is the title of the quiz. Could be the name of the topic covered by the document ) </span>
       <%= form.text_field(:title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
     </div>
 
     <div class="field flex flex-col items-center mb-5">
-      <%= form.label :tag %>
+      <%= form.label :tag, class: "text-white font-semibold" %>
+      <span class="italic text-sm text-center text-white"> ( This is a comma separated list of values that describe the nature of the topic, for example: <span class="font-semibold not-italic"> "Biology, evolution, anatomy" ) </span> </span>
       <%= form.text_field(:tag, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
     </div>
 
     <div class="field flex flex-col items-center mb-5">
-      <%= form.label :quiz_file %>
-      <%= form.file_field(:quiz_file, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
+      <%= form.label :quiz_file, class: "text-white font-semibold" %>
+      <span class="italic text-sm text-center text-white"> ( This is the file with the notes you would love to convert into multiple choice questions. Currently only support files with the .txt format. Working on adding more formats ASAP ) </span>
+      <%= form.file_field(:quiz_file, class: "block text-white shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
     </div>
 
     <div class="actions flex justify-around">
-      <%= form.submit "Create New Quiz", class: "bg-flashBlue p-2 rounded m-2 text-white" %>
-      <%# <%= form.submit "Create New Quiz", class: "bg-flashBlue p-2 rounded m-2 text-white", data: { reflex: "click->HomeReflex#save_new_object", model: "quiz", reflex_serialize_form: true } %>
+      <%= form.submit "Create This Quiz", class: "bg-flashBlue p-2 rounded m-2 text-white" %>
     </div>
   <% end %>
 </div>

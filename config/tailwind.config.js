@@ -43,6 +43,7 @@ module.exports = {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
         sans2: ['Nunito Sans'],
         sans3: ['Raleway'],
+        logo: ['Fredericka the Great '],
         monospace: ['IBM Plex Mono'],
         serif: ['Montserrat'],
       },

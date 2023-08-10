@@ -33,10 +33,10 @@ include QuizzesHelper
       errors.add(:quiz_file, "is too big")
     end
 
-    acceptable_types = ["text/csv"]
+    acceptable_types = ["text/csv", "text/plain"]
     unless acceptable_types.include?(quiz_file.content_type)
       pp "LOG ==> Unnaceptable file type"
-      errors.add(:quiz_file, "must be a .csv file")
+      errors.add(:quiz_file, "must be a .txt file")
     end
   end
 

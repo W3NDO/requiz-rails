@@ -1,11 +1,11 @@
-<div class="nes-container my-8 is-rounded is-dark h-fit lg:h-72 flex-col justify-between">
+<div class="nes-container my-8 is-rounded is-dark h-fit md:h-72 flex-col justify-between">
     <div class="w-full flex justify-around items-center py-8">
         <span class="w-full font-semibold text-3xl text-center"> <%= question.question %> </span>
     </div>
-    <div class="w-full flex flex-col p-5 lg:flex-row items-center lg:justify-between">
+    <div class="w-full flex flex-col p-5 md:flex-row items-center md:justify-between">
         <% question.possible_answers.each do |ans| %>
             <%= button_tag(type: "button", 
-                class: "lg:max-w-xl w-full rounded-full p-2 m-2 bg-white overflow-ellipsis", 
+                class: "md:max-w-xl w-full rounded-full p-2 m-2 bg-white overflow-ellipsis", 
                 data: {
                     reflex: "click->Quiz#check_answer", 
                     :qid => question.id, 

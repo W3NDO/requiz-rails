@@ -12,7 +12,7 @@
             <span class="flex text-white text-center w-full font-bold justify-around"> <%= "+ Add a new #{model.singularize}" %> </span>
         <% end %>
     </div>
-    <div data-home-target="selectionBar" class="mt-5 lg:not-mobile"> <!-- because tailwind is mobile first, this action will only happen on screens smaller than the lg breakpoint -->
+    <div data-home-target="selectionBar" class="mt-5 md:not-mobile"> <!-- because tailwind is mobile first, this action will only happen on screens smaller than the lg breakpoint -->
         <% unless model_options.empty? %>
             <% model_options.each do |option| %>
                 <div class="m-1 flex justify-left">
