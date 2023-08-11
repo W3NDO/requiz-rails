@@ -1,32 +1,55 @@
 <% score = ((correct_answer_count.to_f/question_count.to_f)*100).to_i %>
 <% grading = {
-    :A => [86, "text-testGreen" ],
-    :B => [76, "text-flashBlue" ],
-    :C => [66, "text-red-500"],
-    :D => [56, "text-red-500"],
-    :E => [0, "text-red-500"] }
-
+    :A => [86, "text-testGreen", "bg-testGreen" ],
+    :B => [76, "text-flashBlue", "bg-flashBlue" ],
+    :C => [66, "text-red-500", "bg-red-500" ],
+    :D => [56, "text-red-500", "bg-red-500" ],
+    :E => [0,  "text-red-500", "bg-red-500" ] 
+    }
 %>
-<% res = :D %>
+<% res = [] %>
 <% grading.each do |k,v| %>
     <% if score >= v[0] %>
-        <% res = [k.to_s.titleize, v[1]] %>
+        <% res = [k.to_s.titleize, v[1], v[2] ] %>
         <% break %>
     <% end %>
 <% end %>
 
-<div class=" text-red-500 nes-container my-8 is-rounded is-dark h-72 flex-col justify-between text-yellow-500">
-    <div class="w-full flex-col justify-around items-center py-8">
-        <div class="nes-main my-5 w-full flex items-center justify-around"> 
-            <span class="w-full text-center font-semibold text-xl">  Your score </span> 
+<div class="my-8 h-4/5 flex-col justify-between text-black-500 <%= res[2] %> border border-white rounded-md ">
+    <div class="flex flex-col md:flex-row md:justify-between">
+        <div class="w-full flex-col justify-around items-center py-8">
+            <div class="nes-main my-5 w-full flex items-center justify-around"> 
+                <span class="w-full text-center font-semibold text-xl">  Your score </span> 
+            </div>
+            <div class="my-5 w-full flex items-center justify-around"> 
+                <span class="w-full text-center nes-main text-5xl"> <%= res[0] %> </span> 
+            </div>
+            <div class="my-5 w-full flex items-center justify-around"> 
+                <span class="w-full text-center nes-main text-2xl"> <%= "#{ score }% "%> </span> 
+            </div>
         </div>
-        <div class="my-5 w-full flex items-center justify-around"> 
-            <span class="w-full text-center nes-main text-5xl <%= res[1] %>"> <%= res[0] %> </span> 
-        </div>
-        <div class="my-5 w-full flex items-center justify-around"> 
-            <span class="w-full text-center nes-main text-2xl"> <%= "#{ score }% "%> </span> 
+
+        <div class="flex flex-col w-full items-center m-auto">
+            <div class="flex flex-col">
+                <span class="text-left font-semibold"> How We Grade: </span>
+                <span class="text-left "> <span class="font-bold text-lg"> A </span> : 86% and higher </span>
+                <span class="text-left "> <span class="font-bold text-lg"> B </span> : 76% to 85% </span>
+                <span class="text-left "> <span class="font-bold text-lg"> C </span> : 66% to 75% </span>
+                <span class="text-left "> <span class="font-bold text-lg"> D </span> : 56% to 65% </span>
+                <span class="text-left "> <span class="font-bold text-lg"> E </span> : 55% and lower </span>
+            </div>
         </div>
     </div>
     <div class="w-full flex itmes-center justify-between">
+        <%= button_tag(type: "button", id: "start_btn", data: {
+                  reflex: "click->Quiz#start_quiz", id: quiz.id
+                }, class: "m-5 p-2 rounded bg-red-400") do %>
+                  <%= icon("fa-solid", "rotate-left", class: "text-white") %>
+                  <span class="text-white"> Retake Quiz </span>
+              <% end %>
+        <%= link_to(root_path(focus: "quiz"), class: "m-5 p-2 rounded bg-blue-400") do  %>
+            <%= icon("fa-solid", "arrow-right-from-bracket", class: "text-white") %>
+            <span class="text-white"> Back to my Quizzes </span>
+        <% end %>
     </div>
 </div>
