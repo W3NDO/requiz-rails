@@ -21,6 +21,10 @@ module.exports = {
       'testGreen': '#94cc44',
       'flashBlue': '#2596be',
       'flashYellow': '#F7D51D',
+      'yellow': colors.yellow,
+      'green': colors.green,
+      'amber': colors.amber,
+      'blue': colors.blue,
       'red': colors.red,
       'black': colors.black,
       'white': colors.white,
@@ -37,6 +41,10 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans2: ['Nunito Sans'],
+        sans3: ['Raleway'],
+        logo: ['Fredericka the Great '],
+        monospace: ['IBM Plex Mono'],
         serif: ['Montserrat'],
       },
       keyframes: {

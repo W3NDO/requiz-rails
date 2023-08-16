@@ -11,6 +11,10 @@ class User < ApplicationRecord
   has_many :topics
   has_many :quizzes
 
+  def has_quizzes?
+    return !(self.quizzes.nil?)
+  end
+
   private
   def generatePublicId
     publicId = SecureRandom.hex(3)

@@ -45,16 +45,20 @@ class HomeReflex < ApplicationReflex
     # morph :nothing
   end
 
-  def focus_on_new_option
-    # TODO save the current topic first or ask to save it.
+  def alter_main_container_content
     model = element.dataset["model"].downcase
-    object = get_object(model).find(element.dataset["id"])
-    morph "#main_container", render(
-        partial: "#{model.pluralize.downcase}/#{model.downcase}",
-        locals:{
-          model.to_sym => object
-        }
-      )
+    if model == "home"
+      morph "#main_container", render(partial: "home/landing", locals: {})
+    else
+      # object = get_object(model).find(element.dataset["id"])
+      objects = User.find(element.dataset[:uid]).public_send(model.pluralize.to_sym)
+      morph "#main_container", render(
+          partial: "#{model.pluralize.downcase}/landing",
+          locals:{
+            model.pluralize.to_sym => objects
+          }
+        )
+    end
   end
 
   def alter_sidebar
@@ -65,6 +69,7 @@ class HomeReflex < ApplicationReflex
 
   private
   def get_object(model)
+    model = model.singularize
     allowed_objects = [Topic, Subtopic, Quiz]
     allowed_objects.select{ |obj| model.classify == obj.to_s }.first
   end

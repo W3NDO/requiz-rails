@@ -18,7 +18,7 @@
     </div>
 
     <div class="actions flex justify-around">
-        <%= button_tag "Save Note", class: "bg-blue-500 p-2 rounded m-2 text-white", data: { reflex: editing ? "click->Notes#update_note" : "click->Notes#save_note", reflex_serialize_form: true, topic_id: topic.id } %>
+        <%= button_tag "Save Note", class: "bg-flashBlue p-2 rounded m-2 text-white", data: { reflex: editing ? "click->Notes#update_note" : "click->Notes#save_note", reflex_serialize_form: true, topic_id: topic.id } %>
       </div>
   </form>
 </div>
