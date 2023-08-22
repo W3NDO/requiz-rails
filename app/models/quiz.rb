@@ -1,7 +1,7 @@
 class Quiz < ApplicationRecord
 require 'csv'
 include QuizzesHelper
-  after_commit :schedule_process_job
+  after_create_commit :schedule_process_job
   validate :acceptable_file
   
   has_many :questions
@@ -9,7 +9,8 @@ include QuizzesHelper
   belongs_to :user
   
   has_one_attached :quiz_file
-  enum :processed, [:analyzed], default: :not_analyzed
+  enum :processed, [:analyzed, :analyzing], default: :not_analyzed
+  enum :processing_status
 
   def get_questions()
     return self.questions.map{ |q| {:id=> q.id, :question => q.question, :possible_answers => q.possible_answers} }

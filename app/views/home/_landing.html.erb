@@ -11,8 +11,17 @@
     <% if current_user.has_quizzes? %>
         <% quiz = current_user.quizzes.last %>
         <div class="md:px-10 md:py-10 flex justify-around">
-            <%= button_tag(type: "button", class: "p-2 rounded-lg bg-flashBlue") do %>
-                <span class=" text-white text-xl"> Continue with your last quiz </span>
+            <%= button_tag(type: "button", id: "start_btn", data: {
+                  reflex: "click->Quiz#start_quiz", id: quiz.id
+                }, class: "p-2 rounded-lg bg-flashBlue") do %>
+                  <%= icon("fa-solid", "play") %>
+                  <span class=" text-white text-xl"> Continue with your last quiz </span>
+              <% end %>
+        </div>
+    <% else %>
+        <div class="md:px-10 md:py-10 flex justify-around">
+            <%= link_to(root_path(focus: "quiz"), class: "p-2 rounded-lg bg-flashBlue #{}") do %>
+                <span class=" text-white text-xl"> Get started with your first Quiz </span>
             <% end %>
         </div>
     <% end %>
