@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_11_172157) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_21_114350) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_11_172157) do
     t.string "quiz_file"
     t.integer "processed"
     t.boolean "has_flashcards"
+    t.float "score"
+    t.string "request_id"
   end
 
   create_table "subtopics", force: :cascade do |t|

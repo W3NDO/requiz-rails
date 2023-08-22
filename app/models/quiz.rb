@@ -1,7 +1,7 @@
 class Quiz < ApplicationRecord
 require 'csv'
 include QuizzesHelper
-  after_save :schedule_process_job
+  after_create_commit :schedule_process_job
   validate :acceptable_file
   
   has_many :questions
@@ -9,10 +9,19 @@ include QuizzesHelper
   belongs_to :user
   
   has_one_attached :quiz_file
-  enum :processed, [:analyzed], default: :not_analyzed
+  enum :processed, [:analyzed, :analyzing], default: :not_analyzed
+  enum :processing_status
 
   def get_questions()
     return self.questions.map{ |q| {:id=> q.id, :question => q.question, :possible_answers => q.possible_answers} }
+  end
+
+  def get_tags()
+    self.tag.split(",")
+  end
+
+  def has_flashcards?
+    !self.has_flashcards.nil?
   end
 
   private
@@ -25,10 +34,10 @@ include QuizzesHelper
       errors.add(:quiz_file, "is too big")
     end
 
-    acceptable_types = ["text/csv"]
+    acceptable_types = ["text/csv", "text/plain"]
     unless acceptable_types.include?(quiz_file.content_type)
       pp "LOG ==> Unnaceptable file type"
-      errors.add(:quiz_file, "must be a .csv file")
+      errors.add(:quiz_file, "must be a .txt file")
     end
   end
 

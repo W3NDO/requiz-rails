@@ -1,35 +1,27 @@
 class ScheduleQuizFileProcessingJob < ApplicationJob
+include QuizzesHelper
   queue_as :urgent
 
   def perform(quiz)
     # Do something later
-    pp "Building Questions for Quiz: #{quiz.title}"
-    questions_to_save = []
-    flashcards_to_save = []
+    set_quizzer_requests
+    res = nil
     quiz.quiz_file.attachment.open do |file|
-      CSV.parse(file, headers: false) do |row|
-        row = row.to_csv.split(",")
-        new_question = {
-          :question => row[0],
-          :possible_answers => row[1..-2],
-          :answer => row[-1].chomp,
-          :quiz_id => quiz.id,
-          :tag => quiz.tag
-        }
-        new_flashcard = {
-          :question => row[0],
-          :answer => row[-1].chomp,
-          :quiz_id => quiz.id,
-          :tag => quiz.tag 
-        }
-        questions_to_save << new_question
-        flashcards_to_save << new_flashcard
-
-      end
+      request_body = {:excerpt => file.read.gsub("\n", " ")}
+      res = @qr.process_quiz_request(request_body)
     end
-    if Question.insert_all(questions_to_save) and Flashcard.insert_all(flashcards_to_save)
-      quiz.analyzed!
-      pp "Quiz: #{quiz.title}  has been analyzed and the questions and flashcards have been prepared."
+    if quiz.update!(request_id: res[:request_id])
+      CheckQuizProcessingStatusJob.perform_later(quiz, @qr.token)
+      quiz.analyzing!
+    else
+      raise Exception.new("Unable to update quiz #{quiz.title}")
     end
   end
+
+  private
+  def set_quizzer_requests
+    @qr = QuizzesHelper::QuizzerRequests.new(ENV['FILE_PROCESSOR_USER'], ENV['FILE_PROCESSOR_PASS'])
+    @qr.login
+  end
+
 end

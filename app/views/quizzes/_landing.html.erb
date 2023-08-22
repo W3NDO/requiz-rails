@@ -1,0 +1,74 @@
+<div class="w-full h-screen m-auto flex flex-col">
+  <% unless quizzes.empty? %>
+    <div class="w-full flex justify-start">
+      <%= link_to(root_path(focus: "quiz_new"), class: "px-2 text-sm m-2 rounded-sm bg-blue-30 border-white rounded-md flex") do %>
+        <span class=" border-white rounded"> 
+            <%= icon("fa-solid", "plus", class: "text-white") %>
+            <span class="font-semibold text-white"> New Quiz </span>
+        </span>
+      <% end %>
+   </div>
+  <% end %>
+  <div id="quizzes" class="w-full h-5/6 mx-auto md:mx-5 overflow-y-scroll">
+    <% unless quizzes.empty? %>
+      <% quizzes.order(created_at: :asc).each do |quiz| %>
+      <div class="w-full flex flex-row justify-between p-2 bg-gray-300 rounded-sm my-2">
+        <div class="w-full">
+          <span class="text-xl font-semibold"> 
+            <%= quiz.title %> 
+            <span class="text-gray-600 font-normal italic text-base"> <%= "( Previous Score:  #{quiz.score}% )" if quiz.score %> </span>
+          </span>
+          <div class="hidden md:flex">
+              <% quiz.get_tags[..3].each do  |tag| %>
+                <span class="text-sm p-1 bg-gray-600 m-1 rounded <%= "#{["text-flashBlue", "text-testGreen",  "text-flashYellow"].sample}" %>"> <%= "##{tag}"%> </span>
+              <% end %>
+          </div>
+        </div>
+
+          <div class="w-full flex justify-end">
+            <% if quiz.analyzed? %>
+              <div class="hidden md:flex md:flex-row md:justify-between">
+                <%= button_tag(type: "button", id: "start_btn", data: {
+                    reflex: "click->Quiz#start_quiz", id: quiz.id
+                  }, class: "px-2 text-sm m-2 rounded-sm #{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-200"} ") do %>
+                    <%= icon("fa-solid", "play") %>
+                    <span class=" font-semibold"> Start Quiz </span>
+                <% end %>
+
+                <%= button_tag(type: "button", id: "flash_btn", data: { disabled: !(quiz.has_flashcards?),
+                    reflex: "click->Flashcard#start_flash_session", id: quiz.id
+                  }, class: "px-2 text-sm m-2 rounded-sm #{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
+                    <%= icon("fa-solid", "bolt-lightning") %>
+                    <span class="font-semibold <%= "#{quiz.has_flashcards? ? "" : "line-through"}" %>"> Flash Session </span>
+                <% end %>
+
+                <%= button_tag(type: "button", id: "flash_btn", data: {
+                    reflex: "click->Flashcard#start_flash_session", id: quiz.id
+                  }, class: "px-2 text-sm m-2 rounded-sm #{quiz.persisted? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
+                    <%= icon("fa-solid", "trash") %>
+                    <span class="font-semibold"> Delete Quiz </span>  <!-- TODO Add functionality for the delete quiz here.  -->
+                <% end %>
+              </div>
+
+              <div class="flex flex-row justify-around md:hidden">
+                <button type="button" class="p-2 m-2 rounded-md <%= "#{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-200"}" %>"> <%= icon("fa-solid", "play") %> </button>
+                <button type="button" class="p-2 m-2 rounded-md <%= "#{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"}" %>"> <%= icon("fa-solid", "bolt-lightning") %> </button> 
+              </div>
+            <% else %>
+              <div class="w-full flex flex-col items-center justify-between">
+                <%= icon("fa-solid", "rotate", class: "animate-spin text-3xl") %>
+                <span class="w-full text-center font-semibold"> Your Quiz is currently being processed. Please check back in a couple minutes. </span>            
+              </div>
+            <% end %>
+          </div>
+      </div>
+      <% end %>
+    <% else %>
+        <div class="w-full m-auto flex justify-center">
+          <%= render(partial: "quizzes/form", locals: {}) %>
+        </div>
+    <% end %>
+    <div class="my-10"></div>
+
+  </div>
+</div>
