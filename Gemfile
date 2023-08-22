@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", ">= 5.6.7"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
@@ -87,8 +87,4 @@ gem "redis-session-store", "~> 0.11.5"
 gem "devise_token_auth", "~> 1.2"
 gem 'faker'
 gem 'solargraph'
-
-gem 'figaro', '~> 1.1', '>= 1.1.1' # for environment varibale management
-
-
 gem "httparty", "~> 0.21.0"
