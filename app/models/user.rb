@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :quizzes
 
   def has_quizzes?
-    return !(self.quizzes.nil?)
+    return !(self.quizzes.empty?)
   end
 
   private

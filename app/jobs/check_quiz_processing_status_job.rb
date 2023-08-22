@@ -8,7 +8,7 @@ class CheckQuizProcessingStatusJob < ApplicationJob
     request_id = quiz.request_id
     response = @qr.check_processed_status(request_id)
     pp response["processed"]
-    
+
     if response["processed"] == true
       pp "Creating Questions..."
       questions = []
@@ -23,6 +23,7 @@ class CheckQuizProcessingStatusJob < ApplicationJob
       end
       Question.create(questions)
       quiz.analyzed!
+      quiz.quiz_file.purge_later
     else
       pp "Questions not ready. Checking again in 2 minutes."
       CheckQuizProcessingStatusJob.set(wait_until: Time.now + 2.minutes).perform_later(quiz, token) # wait and then recheck

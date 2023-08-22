@@ -54,9 +54,10 @@ module.exports = {
           '92.5%': {'opacity': 1},
           '100%': {'opacity': 0, 'left': '-9999px'}
         },
+
       },
       animation: {
-        'fade-out': 'fade-out 7s forwards '
+        'fade-out': 'fade-out 7s forwards ',
       },
     },
   },

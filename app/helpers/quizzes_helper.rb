@@ -1,13 +1,13 @@
 module QuizzesHelper
   class QuizzerRequests
     include HTTParty
-    base_uri "http://b9d5-102-68-77-102.ngrok-free.app"
+    base_uri ENV['FILE_PROCESSOR_URI']
     
 
     def initialize(user=nil, pass=nil, token=nil)
       @auth = {"name" => user, "password" => pass} unless token
       @token = token if token
-      @base_url = "http://8e39-102-68-77-102.ngrok-free.app"
+      @base_url =  ENV['FILE_PROCESSOR_URI']
     end
 
     def token

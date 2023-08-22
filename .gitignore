@@ -35,4 +35,5 @@
 /node_modules
 
 /config/application.yml
+/config/local_env.yml
 /misc

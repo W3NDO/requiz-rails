@@ -12,6 +12,7 @@ include QuizzesHelper
     end
     if quiz.update!(request_id: res[:request_id])
       CheckQuizProcessingStatusJob.perform_later(quiz, @qr.token)
+      quiz.analyzing!
     else
       raise Exception.new("Unable to update quiz #{quiz.title}")
     end
@@ -19,7 +20,7 @@ include QuizzesHelper
 
   private
   def set_quizzer_requests
-    @qr = QuizzesHelper::QuizzerRequests.new("K3NDO", "foobar123")
+    @qr = QuizzesHelper::QuizzerRequests.new(ENV['FILE_PROCESSOR_USER'], ENV['FILE_PROCESSOR_PASS'])
     @qr.login
   end
 
