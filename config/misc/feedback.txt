@@ -1,6 +1,7 @@
-TODO New quiz button could be better
-TODO New Quiz Form could be a bit narrower
-TODO Other file formats for text generation
-TODO Open AI assistance (ruby/openai)
-TODO ElevenLabs AI voice
-TODO PDF reader gem
+- [x] New quiz button could be better
+- [x] New Quiz Form could be a bit narrower
+- [ ] Other file formats for text generation
+- [ ] Open AI assistance (ruby/openai)
+- [ ] ElevenLabs AI voice
+- [x] PDF reader gem
+- [ ] Server error feedback 
