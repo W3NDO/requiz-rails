@@ -1,7 +1,7 @@
 <div class="w-full h-screen m-auto flex flex-col px-1">
   <% unless quizzes.empty? %>
     <div class="w-full flex justify-center md:justify-start mx-auto mt-1 md:mx-5 ">
-      <%= link_to(root_path(focus: "quiz_new"), class: "border p-2 md:px-2 md:py-4 text-sm my-2 rounded-lg md:rounded-md active:bg-flashBlue border-white rounded-md") do %>
+      <%= link_to(new_quiz_path(), class: "border p-2 md:px-2 md:py-4 text-sm my-2 rounded-lg md:rounded-md active:bg-flashBlue border-white rounded-md") do %>
         <span class=" border-white rounded flex jsutify-between">  
             <%= icon("fa-solid", "plus", class: "text-white text-2xl md:text-xl md:pr-1") %>
             <span class="hidden md:block font-semibold text-white pl-1"> New Quiz </span>
@@ -55,36 +55,31 @@
 
           <div class="w-full h-1/3 flex align-middle justify-end mx-5 my-auto">
               <% if quiz.analyzed? %>
-                <div class="hidden md:flex md:flex-row md:justify-between">
+                <div class="flex flex-row justify-end md:justify-between">
                   <%= button_tag(type: "button", id: "start_btn", data: {
                       reflex: "click->Quiz#start_quiz", id: quiz.id
                     }, class: "md:px-2 p-2 text-sm m-2 rounded-md #{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-200"} ") do %>
                       <%= icon("fa-solid", "play") %>
-                      <span class=" font-semibold"> Start Quiz </span>
+                      <span class="hidden md:block font-semibold"> Start Quiz </span>
                   <% end %>
 
                   <%= button_tag(type: "button", id: "flash_btn", data: { disabled: !(quiz.has_flashcards?),
                       reflex: "click->Flashcard#start_flash_session", id: quiz.id
                     }, class: "md:px-2 p-2 text-sm m-2 rounded-md #{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
                       <%= icon("fa-solid", "bolt-lightning") %>
-                      <span class="font-semibold <%= "#{quiz.has_flashcards? ? "" : "line-through"}" %>"> Flash Session </span>
+                      <span class="hidden md:block font-semibold <%= "#{quiz.has_flashcards? ? "" : "line-through"}" %>"> Flash Session </span>
                   <% end %>
 
                   <%= button_tag(type: "button", id: "flash_btn", data: {
                       reflex: "click->Application#yet_to_implement", id: quiz.id
                     }, class: "px-2 text-sm m-2 rounded-md #{quiz.persisted? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
                       <%= icon("fa-solid", "trash") %>
-                      <span class="font-semibold"> Delete Quiz </span>  <!-- TODO Add functionality for the delete quiz here.  -->
+                      <span class="hidden md:block font-semibold"> Delete Quiz </span>  <!-- TODO Add functionality for the delete quiz here.  -->
                   <% end %>
                 </div>
-
-                <div class="w-full flex flex-row justify-end items-center md:hidden">
-                  <button type="button" class="py-2 text-sm m-2 px-3 rounded-md <%= "#{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-300"}" %>"> <%= icon("fa-solid", "play") %> </button>
-                  <button type="button" class="py-2 text-sm m-2 px-3 rounded-md <%= "#{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"}" %>"> <%= icon("fa-solid", "bolt-lightning") %> </button> 
-                </div>
               <% else %>
-                <div class="w-full flex flex-col items-end md:items-center justify-end">
-                  <%= icon("fa-solid", "rotate", class: "text-right animate-spin text-3xl") %>
+                <div class="w-full flex flex-col items-center justify-end">
+                  <%= icon("fa-solid", "rotate", class: "animate-spin text-3xl") %>
                   <span class="hidden md:block w-full text-center font-semibold"> Your Quiz is currently being processed. Please check back in a couple minutes. </span>
                   <span class="md:hidden w-full text-right font-semibold"> Processing... </span>
                 </div>

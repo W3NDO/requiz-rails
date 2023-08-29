@@ -30,7 +30,7 @@ class QuizzesController < ApplicationController
         format.html { redirect_to root_path(focus: "quiz") }
         format.json { render :show, status: :created, location: @quiz }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render :new, status: :unprocessable_entity}
         format.json { render json: @quiz.errors, status: :unprocessable_entity }
       end
     end
