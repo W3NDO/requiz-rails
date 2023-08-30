@@ -1,7 +1,9 @@
 <nav class="w-full pb-3 md:flex md:flex-row justify-around col-start-1 col-end-8 border-b">
     <div id="logo" class="w-full m-auto">
-        <div class="w-full h-full flex md:justify-start justify-start items-start">
-            <span class="text-white font-logo text-5xl px-10 py-2 mx-auto md:mx-5">  ReQuiz </span>
+        <div class="w-full h-full flex md:justify-start justify-start items-start py-1">
+            <%= link_to root_path, class: "hover:animate-pulse w-full flex items-center justify-center md:justify-start" do %>
+                <span class="text-white font-logo text-5xl px-10 py-2 mx-auto md:mx-5">  ReQuiz </span>
+            <% end %>
         </div>
     </div>
 
