@@ -1,7 +1,7 @@
 <% is_edit ||= false %>
 <% quiz = is_edit ?  object : Quiz.new %>
 
-<div class ="bg-black mt-5 mx-auto w-full md:w-4/6 grid place-items-center md:border py-2 px-5 rounded border-gray-300 items-center shadow-md md:shadow-gray-400" >
+<div class ="mt-5 mx-auto w-full md:w-4/6 grid place-items-center md:border py-2 px-5 rounded border-gray-300 items-center shadow-md md:shadow-gray-400" >
   <h2 class="mb-5 text-2xl text-white font-semibold">Create A New Quiz</h2>
 
   <%= form_with(model: quiz, multipart: true) do |form| %>

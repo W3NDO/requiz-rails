@@ -9,7 +9,7 @@
       <% end %>
    </div>
   <% end %>
-  <div id="quizzes" class="w-full h-5/6 mx-auto md:mx-5 overflow-y-scroll">
+  <div id="quizzes" class="w-full h-5/6 mx-auto overflow-y-scroll">
     <% unless quizzes.empty? %>
       <% quizzes.order(created_at: :desc).each do |quiz| %>
         <% quiz_score = [ (quiz.score != nil), quiz.score.to_f ]%>
@@ -88,8 +88,13 @@
         </div>
       <% end %>
     <% else %>
-        <div class="w-full m-auto flex justify-center">
-          <%= render(partial: "quizzes/form", locals: {}) %>
+        <div class="md:px-10 md:py-10 flex flex-col justify-around w-full">
+          <span class="text-white text-2xl font-sans2 text-center w-full"> 
+            You do not have any quizzes set up yet. Let's fix that real quick. More details about quizzes here. We leverage OpenAI's GPT3.5 engine to help generate these quizzes.
+          </span>
+          <%= link_to(new_quiz_path, class: "p-2 m-auto rounded-lg bg-flashBlue") do %>
+              <span class=" text-white text-xl"> Get started with your first Quiz </span>
+          <% end %>
         </div>
     <% end %>
     <div class="my-10"></div>

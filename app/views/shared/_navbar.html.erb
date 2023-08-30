@@ -1,0 +1,29 @@
+<nav class="w-full pb-3 md:flex md:flex-row justify-around col-start-1 col-end-8 border-b">
+    <div id="logo" class="w-full m-auto">
+        <div class="w-full h-full flex md:justify-start justify-start items-start">
+            <span class="text-white font-logo text-5xl px-10 py-2 mx-auto md:mx-5">  ReQuiz </span>
+        </div>
+    </div>
+
+    <% if current_user.present? %>
+        <div id="menu_list" class="w-full m-auto">
+            <ul class="w-full h-full flex md:justify-end justify-between items-end px-10">
+                <% ApplicationHelper::NAVBAR_MENU_OPTIONS.each do |option, path| %>
+                    <li> 
+                        <%= link_to "#{option.to_s.titleize}", public_send(path), class: "#{params[:focus] == option.to_s.singularize ? "border-b" : ""} ease-in-out duration-250 my-1 p-1 text-2xl text-white hover:text-white hover:no-underline hover:border-b visited:white mx-3 cursor-pointer w-full" %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    <% else %>
+        <div id="menu_list" class="w-full m-auto">
+            <ul class="w-full h-full flex md:justify-end justify-between items-end px-10">
+                <% ApplicationHelper::NAVBAR_AUTH_OPTIONS.each do |option, path| %>
+                    <li> 
+                        <%= link_to "#{option.to_s.titleize}", public_send(path), class: "#{params[:focus] == option.to_s.singularize ? "border-b" : ""} ease-in-out duration-250 my-1 p-1 text-2xl text-white hover:text-white hover:no-underline hover:border-b visited:white mx-3 cursor-pointer w-full" %>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+</nav>

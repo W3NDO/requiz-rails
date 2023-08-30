@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!
   def index
-    @topics = current_user.topics
+    @topics = current_user.topics if current_user.present? 
   end
 end
