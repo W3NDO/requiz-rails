@@ -1,7 +1,7 @@
 class Quiz < ApplicationRecord
 require 'csv'
 include QuizzesHelper
-  # after_create_commit :schedule_process_job
+  after_create_commit :schedule_process_job
   validate :acceptable_file
   validates :title, presence: true
   validates :tag, presence: true

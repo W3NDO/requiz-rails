@@ -1,15 +1,12 @@
 
 <div class="bg-gradient-to-l cursor-default from-flashBlue  to-black h-screen w-full overflow-hidden max-h-screen md:grid md:grid-cols-7 md:grid-rows-6">
+    <% if notice.present? %>
+        <%= render(partial: "shared/basic_notification", locals: {message: notice})%>
+    <% end %>
+    
     <div id="main_container" class="w-full h-fit mx-auto col-start-2 col-end-7"> <!-- This is where we render all the content -->
         <% if current_user.present? %>
-            <% case params[:focus] %>
-            <% when "quiz" %>
-                <%= render( partial: "quizzes/landing", locals:{ :quizzes => current_user.quizzes } ) %>
-            <% when "quiz_new" %>
-                <%= render( partial: "quizzes/form", locals:{ } ) %>
-            <% else %>
-                <%= render(partial: "home/landing", locals: {}) %>
-            <% end %>
+            <%= render(partial: "home/landing", locals: {}) %>
         <% else %>
             <%= render(partial: "home/unauth_landing", locals: {}) %>
         <% end %>

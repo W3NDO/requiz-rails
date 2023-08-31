@@ -13,13 +13,14 @@
     <% unless quizzes.empty? %>
       <% quizzes.order(created_at: :desc).each do |quiz| %>
         <% quiz_score = [ (quiz.score != nil), quiz.score.to_f ]%>
+        <% total_questions = quiz.questions.size %>
         
         <div class="w-full flex flex-row justify-between p-2 bg-gray-300 rounded-md my-2 mx-auto">
           <div class="w-full">
             <span class="md:text-xl text-md font-semibold"> 
               <%= "#{quiz.title[0..100]}" %> 
               <span class="text-gray-600 font-normal italic text-base"> 
-                <%= "( Previous Score:  #{quiz_score[1] }% )" if quiz_score[0] %> 
+                <%= "( #{total_questions} Questions. )" %> 
               </span>
             </span>
             <div class="hidden md:flex">
