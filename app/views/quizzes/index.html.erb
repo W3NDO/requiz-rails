@@ -1,9 +1,5 @@
 
 <div class="bg-gradient-to-l cursor-default from-flashBlue  to-black h-screen w-full overflow-hidden max-h-screen md:grid md:grid-cols-7 md:grid-rows-6">
-  <% if notice.present? %>
-    <%= render(partial: "shared/basic_notification", locals: {message: notice})%>
-  <% end %>
-
   <div id="main_container" class="w-full h-fit mx-auto col-start-2 col-end-7">
     <%= render(partial: "quizzes/landing", locals: {quizzes: @quizzes}) %>
   </div>
