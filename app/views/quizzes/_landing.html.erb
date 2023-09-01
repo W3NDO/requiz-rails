@@ -1,8 +1,10 @@
+<% thresholds = [85.0, 65.0, 33.0 ]%>
+
 <div class="w-full h-screen m-auto flex flex-col px-1">
   <% unless quizzes.empty? %>
     <div class="w-full flex justify-center md:justify-start mx-auto mt-1 md:mx-5 ">
       <%= link_to(new_quiz_path(), class: "border p-2 md:px-2 md:py-4 text-sm my-2 rounded-lg md:rounded-md active:bg-flashBlue border-white rounded-md") do %>
-        <span class=" border-white rounded flex jsutify-between">  
+        <span class=" border-white rounded flex justify-between">  
             <%= icon("fa-solid", "plus", class: "text-white text-2xl md:text-xl md:pr-1") %>
             <span class="hidden md:block font-semibold text-white pl-1"> New Quiz </span>
         </span>
@@ -12,7 +14,7 @@
   <div id="quizzes" class="w-full h-5/6 mx-auto overflow-y-scroll">
     <% unless quizzes.empty? %>
       <% quizzes.order(created_at: :desc).each do |quiz| %>
-        <% quiz_score = [ (quiz.score != nil), quiz.score.to_f ]%>
+        <% quiz_score = [ (quiz.score != nil), quiz.score.to_f ] %>
         <% total_questions = quiz.questions.size %>
         
         <div class="w-full flex flex-row justify-between p-2 bg-gray-300 rounded-md my-2 mx-auto">
@@ -32,24 +34,11 @@
 
           <div class="m-auto flex align-middle justify-center">
             <% if quiz_score[0] %>
+
               <span class="flex flex-col">
-                <% if quiz_score[1] >= 85.0  %>
-                    <%= icon("fa-solid", "star", class: "px-2") %>
-                    <%= icon("fa-solid", "star", class: "px-2") %>
-                    <%= icon("fa-solid", "star", class: "px-2") %> 
-                  <% elsif quiz_score[1] >= 65.0 %>
-                    <%= icon("fa-regular", "star", class: "px-2") %>
-                    <%= icon("fa-solid", "star", class: "px-2") %>
-                    <%= icon("fa-solid", "star", class: "px-2") %> 
-                  <% elsif quiz_score[1] >= 33.0 %>
-                    <%= icon("fa-regular", "star", class: "px-2") %>
-                    <%= icon("fa-regular", "star", class: "px-2") %>
-                    <%= icon("fa-solid", "star", class: "px-2") %>
-                  <% else %>
-                    <%= icon("fa-regular", "star", class: "px-2") %>
-                    <%= icon("fa-regular", "star", class: "px-2") %>
-                    <%= icon("fa-regular", "star", class: "px-2") %> 
-                  <% end %>
+                <% thresholds.each do |score_threshold| %>
+                  <%= icon("#{quiz_score[1] >= score_threshold  ? "fa-solid" : "fa-regular"}", "star", class: "px-2") %>
+                <% end %>
               </span>
             <% end %>
           </div>
