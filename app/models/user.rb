@@ -15,6 +15,14 @@ class User < ApplicationRecord
     return !(self.quizzes.empty?)
   end
 
+  def has_processed_quizzes?
+    return !(self.quizzes.analyzed.empty?)
+  end
+
+  def processed_quizzes
+    self.quizzes.analyzed
+  end
+
   private
   def generatePublicId
     publicId = SecureRandom.hex(3)

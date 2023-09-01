@@ -2,7 +2,7 @@
 <% grading = {
     :A => [86, "text-testGreen", "bg-testGreen" ],
     :B => [76, "text-flashBlue", "bg-flashBlue" ],
-    :C => [66, "text-red-500", "bg-red-500" ],
+    :C => [66, "text-red-500", "bg-amber-500" ],
     :D => [56, "text-red-500", "bg-red-500" ],
     :E => [0,  "text-red-500", "bg-red-500" ] 
     }
@@ -47,9 +47,11 @@
                   <%= icon("fa-solid", "rotate-left", class: "text-white") %>
                   <span class="text-white"> Retake Quiz </span>
               <% end %>
-        <%= link_to(root_path(focus: "quiz"), class: "m-5 p-2 rounded bg-blue-400") do  %>
-            <%= icon("fa-solid", "arrow-right-from-bracket", class: "text-white") %>
-            <span class="text-white"> Back to my Quizzes </span>
+        <%= link_to(quizzes_path, class: "m-5 p-2 rounded bg-blue-400") do  %>
+            <div class="flex justify-between items-center w-full">
+                <%= icon("fa-solid", "arrow-right-from-bracket", class: "text-white") %>
+                <span class="text-white"> Back to my Quizzes </span>
+            </div>
         <% end %>
     </div>
 </div>

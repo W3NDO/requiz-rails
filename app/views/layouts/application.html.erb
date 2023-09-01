@@ -18,8 +18,12 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="sm:overflow-x-scroll m-0 max-h-screen p-0 sm:overflow-y-hidden md:overflow-y-scroll md:overflow-x-hidden overflow-hidden">
-    <main id="" class="overflow-y-hidden h-full grid place-items-center font-serif" data-controller="notification-modal">
+  <body class="sm:overflow-x-scroll m-0 p-0 w-full md:overflow-y-scroll md:overflow-x-hidden">
+    <main id="" class="h-full w-screen font-serif bg-gradient-to-l cursor-default from-flashBlue  to-black" data-controller="notification-modal">
+      <%= render partial: "shared/navbar" %>
+      <% if notice.present? %>
+        <%= render(partial: "shared/basic_notification", locals: {message: notice})%>
+      <% end %>
       <div id="notification_container" class="w-full h-full"></div>
       <div id="modal_container" class="z-50 fixed top-auto left-auto border-gray-500 bg-white opacity-100 border-4 rounded-2xl shadow-2xl shadow-gray-500 hidden"></div>
       <%= yield %>

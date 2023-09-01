@@ -3,6 +3,9 @@ require 'csv'
 include QuizzesHelper
   after_create_commit :schedule_process_job
   validate :acceptable_file
+  validates :title, presence: true
+  validates :tag, presence: true
+  validates :quiz_file, presence: true
   
   has_many :questions
   has_many :flashcards
@@ -24,21 +27,30 @@ include QuizzesHelper
     !self.has_flashcards.nil?
   end
 
+  def has_questions?
+    !(self.questions.empty? || self.questions.nil?)
+  end
+
   private
   def acceptable_file
-    pp "LOG ==> Success attached" unless quiz_file.attached?
     return unless quiz_file.attached?
+    acceptable_types = ["text/plain"]
+    acceptable_file_extensions = [".pdf", ".txt"]
 
-    unless quiz_file.blob.byte_size <=1.megabyte
+    unless quiz_file.blob.byte_size <=3.megabyte
       pp "LOG ==> File too big"
-      errors.add(:quiz_file, "is too big")
+      errors.add(:quiz_file, "is too big. Please upload files smaller than 3MB")
     end
 
-    acceptable_types = ["text/csv", "text/plain"]
-    unless acceptable_types.include?(quiz_file.content_type)
+    unless acceptable_file_extensions.include?( quiz_file.blob.filename.extension_with_delimiter )
       pp "LOG ==> Unnaceptable file type"
-      errors.add(:quiz_file, "must be a .txt file")
+      errors.add(:quiz_file, "must be a .txt or a .pdf file")
     end
+
+    # unless acceptable_types.include?(quiz_file.content_type)
+    #   pp "LOG ==> Unnaceptable file type"
+    #   errors.add(:quiz_file, "must be a .txt or a .pdf file")
+    # end
   end
 
   def schedule_process_job

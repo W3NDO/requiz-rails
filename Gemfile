@@ -84,7 +84,17 @@ gem "stimulus_reflex", "= 3.5.0.rc2"
 gem "action-cable-redis-backport", "~> 1"
 
 gem "redis-session-store", "~> 0.11.5"
+
 gem "devise_token_auth", "~> 1.2"
+
 gem 'faker'
+
 gem 'solargraph'
+
 gem "httparty", "~> 0.21.0"
+
+gem "ruby-openai", "~> 5.1"
+
+gem "pdf-reader", "~> 2.11"
+
+gem "activesupport", ">= 7.0.7.1"

@@ -1,28 +1,35 @@
 <div class="flex flex-col px-10">
     <div class="md:px-10 md:py-1 flex flex-col items-center row-start-2 row-end-3">
-        <p class="w-full text-xl md:text-5xl text-white text-center md:text-justify" >
+        <p class="w-full text-2xl md:text-5xl text-white text-justify" >
             Welcome to <span class="underline font-logo"> ReQuiz.</span>
             Your own personal revision app that you can take to <span class="underline">study anywhere</span>. Where we allow
-            you to  upload notes and develop qiuzzes and flashcards. All we want
+            you to  upload notes and develop quizzes and flashcards. All we want
             to do is help you <span class="underline"> study anytime </span>.
         </p>
     </div>
 
-    <% if current_user.has_quizzes? %>
-        <% quiz = current_user.quizzes.last %>
-        <div class="md:px-10 md:py-10 flex justify-around">
-            <%= button_tag(type: "button", id: "start_btn", data: {
-                  reflex: "click->Quiz#start_quiz", id: quiz.id
-                }, class: "p-2 rounded-lg bg-flashBlue") do %>
-                  <%= icon("fa-solid", "play") %>
-                  <span class=" text-white text-xl"> Continue with your last quiz </span>
-              <% end %>
-        </div>
-    <% else %>
-        <div class="md:px-10 md:py-10 flex justify-around">
-            <%= link_to(root_path(focus: "quiz"), class: "p-2 rounded-lg bg-flashBlue #{}") do %>
-                <span class=" text-white text-xl"> Get started with your first Quiz </span>
-            <% end %>
-        </div>
-    <% end %>
+    <div class="mt-10">
+        <% if current_user.has_processed_quizzes? %>
+            <% quiz = current_user.processed_quizzes.last %>
+            <div class="md:px-10 md:py-10 flex justify-around">
+                
+                <%= button_tag(type: "button", id: "start_btn", data: {
+                    reflex: "click->Quiz#start_quiz", id: quiz.id
+                    }, class: "p-2 rounded-lg bg-flashBlue flex items-center") do %>
+                    <%= icon("fa-solid", "play", class: "text-white mx-1") %>
+                    <span class=" text-white text-xl mx-1"> Continue with your last quiz </span>
+                <% end %>
+            </div>
+        <% else %>
+            <div class="md:px-10 md:py-10 flex justify-around">
+                <% if !current_user.has_processed_quizzes? and current_user.has_quizzes? %>
+                    <%= link_to(quizzes_path, class: "p-2 rounded-lg bg-flashBlue #{}") do %>
+                        <span class=" text-white text-xl"> Get started with your first Quiz </span>
+                    <% end %>
+                <% else %>
+                    <span class="p-2 rounded-lg bg-flashBlue text-white text-xl"> Your quizzes are all currently being processed. Check back in a few. </span>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
 </div>

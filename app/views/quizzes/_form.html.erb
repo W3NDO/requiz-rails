@@ -1,26 +1,30 @@
 <% is_edit ||= false %>
 <% quiz = is_edit ?  object : Quiz.new %>
 
-<div class ="mt-5 grid place-items-center border py-2 px-5 rounded border-gray-300 items-center shadow-md shadow-gray-400" >
+<div class ="mt-5 mx-auto w-full md:w-4/6 grid place-items-center md:border py-2 px-5 rounded border-gray-300 items-center shadow-md md:shadow-gray-400" >
   <h2 class="mb-5 text-2xl text-white font-semibold">Create A New Quiz</h2>
 
   <%= form_with(model: quiz, multipart: true) do |form| %>
     <div class="field flex flex-col items-center mb-5">
-      <%= form.label :title, class: "text-white font-semibold" %>
-      <span class="italic text-sm text-white text-center"> ( This is the title of the quiz. Could be the name of the topic covered by the document ) </span>
-      <%= form.text_field(:title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
+      <%= form.label :title, class: "text-white text-2xl font-semibold" %>
+      <span class="italic text-xs text-white text-center"> ( This is the title of the quiz. Could be the name of the topic covered by the document ) </span>
+      <%= form.text_field(:title, class: "text-center block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
     </div>
 
     <div class="field flex flex-col items-center mb-5">
-      <%= form.label :tag, class: "text-white font-semibold" %>
-      <span class="italic text-sm text-center text-white"> ( This is a comma separated list of values that describe the nature of the topic, for example: <span class="font-semibold not-italic"> "Biology, evolution, anatomy" ) </span> </span>
-      <%= form.text_field(:tag, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
+      <%= form.label :tag, class: "text-white text-2xl font-semibold" %>
+      <span class="italic text-xs text-center text-white"> ( This is a comma separated list of values that describe the nature of the topic, for example: <span class="font-semibold not-italic"> "Biology, evolution, anatomy" ) </span> </span>
+      <%= form.text_field(:tag, class: "text-center block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
     </div>
 
     <div class="field flex flex-col items-center mb-5">
-      <%= form.label :quiz_file, class: "text-white font-semibold" %>
-      <span class="italic text-sm text-center text-white"> ( This is the file with the notes you would love to convert into multiple choice questions. Currently only support files with the .txt format. Working on adding more formats ASAP ) </span>
-      <%= form.file_field(:quiz_file, class: "block text-white shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
+      <%= form.label :quiz_file, class: "text-white text-2xl font-semibold" %>
+      <span class="italic text-xs text-center text-white"> ( This is the file with the notes you would want to convert into multiple choice questions. Currently only support .txt and .pdf files ) </span> <!-- TODO update when the PDF reader is functional -->
+      <%= form.file_field(:quiz_file, class: "text-center block text-white shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full") %>
+    </div>
+
+    <div class="field flex flex-col items-center mb-5 bg-white rounded-sm">
+      <span class="text-normal text-red-600 text-center w-full" > <strong> Warning: </strong> processing documents with math symbols like physics papers, chemistry papers and the like might lead to more expensive processing costs. </span>
     </div>
 
     <div class="actions flex justify-around">

@@ -1,71 +1,90 @@
-<div class="w-full h-screen m-auto flex flex-col">
+<% thresholds = [85.0, 65.0, 33.0 ]%>
+
+<div class="w-full h-screen m-auto flex flex-col px-1">
   <% unless quizzes.empty? %>
-    <div class="w-full flex justify-start">
-      <%= link_to(root_path(focus: "quiz_new"), class: "px-2 text-sm m-2 rounded-sm bg-blue-30 border-white rounded-md flex") do %>
-        <span class=" border-white rounded"> 
-            <%= icon("fa-solid", "plus", class: "text-white") %>
-            <span class="font-semibold text-white"> New Quiz </span>
+    <div class="w-full flex justify-center md:justify-start mx-auto mt-1 md:mx-5 ">
+      <%= link_to(new_quiz_path(), class: "border p-2 md:px-2 md:py-4 text-sm my-2 rounded-lg md:rounded-md active:bg-flashBlue border-white rounded-md") do %>
+        <span class=" border-white rounded flex justify-between">  
+            <%= icon("fa-solid", "plus", class: "text-white text-2xl md:text-xl md:pr-1") %>
+            <span class="hidden md:block font-semibold text-white pl-1"> New Quiz </span>
         </span>
       <% end %>
    </div>
   <% end %>
-  <div id="quizzes" class="w-full h-5/6 mx-auto md:mx-5 overflow-y-scroll">
+  <div id="quizzes" class="w-full h-5/6 mx-auto overflow-y-scroll">
     <% unless quizzes.empty? %>
-      <% quizzes.order(created_at: :asc).each do |quiz| %>
-      <div class="w-full flex flex-row justify-between p-2 bg-gray-300 rounded-sm my-2">
-        <div class="w-full">
-          <span class="text-xl font-semibold"> 
-            <%= quiz.title %> 
-            <span class="text-gray-600 font-normal italic text-base"> <%= "( Previous Score:  #{quiz.score}% )" if quiz.score %> </span>
-          </span>
-          <div class="hidden md:flex">
-              <% quiz.get_tags[..3].each do  |tag| %>
-                <span class="text-sm p-1 bg-gray-600 m-1 rounded <%= "#{["text-flashBlue", "text-testGreen",  "text-flashYellow"].sample}" %>"> <%= "##{tag}"%> </span>
-              <% end %>
+      <% quizzes.order(created_at: :desc).each do |quiz| %>
+        <% quiz_score = [ (quiz.score != nil), quiz.score.to_f ] %>
+        <% total_questions = quiz.questions.size %>
+        
+        <div class="w-full flex flex-row justify-between p-2 bg-gray-300 rounded-md my-2 mx-auto">
+          <div class="w-full">
+            <span class="md:text-xl text-md font-semibold"> 
+              <%= "#{quiz.title[0..100]}" %> 
+              <span class="text-gray-600 font-normal italic text-base"> 
+                <%= "( #{total_questions} Questions. )" %> 
+              </span>
+            </span>
+            <div class="hidden md:flex">
+                <% quiz.get_tags[..3].each do  |tag| %> <!-- TODO make these tags clickable -->
+                  <span class="text-sm p-1 bg-gray-600 m-1 rounded <%= "#{["text-flashBlue", "text-testGreen",  "text-flashYellow"].sample}" %>"> <%= "##{tag}"%> </span>
+                <% end %>
+            </div>
           </div>
-        </div>
 
-          <div class="w-full flex justify-end">
-            <% if quiz.analyzed? %>
-              <div class="hidden md:flex md:flex-row md:justify-between">
-                <%= button_tag(type: "button", id: "start_btn", data: {
-                    reflex: "click->Quiz#start_quiz", id: quiz.id
-                  }, class: "px-2 text-sm m-2 rounded-sm #{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-200"} ") do %>
-                    <%= icon("fa-solid", "play") %>
-                    <span class=" font-semibold"> Start Quiz </span>
+          <div class="m-auto flex align-middle justify-center">
+            <% if quiz_score[0] %>
+
+              <span class="flex flex-col">
+                <% thresholds.each do |score_threshold| %>
+                  <%= icon("#{quiz_score[1] >= score_threshold  ? "fa-solid" : "fa-regular"}", "star", class: "px-2") %>
                 <% end %>
-
-                <%= button_tag(type: "button", id: "flash_btn", data: { disabled: !(quiz.has_flashcards?),
-                    reflex: "click->Flashcard#start_flash_session", id: quiz.id
-                  }, class: "px-2 text-sm m-2 rounded-sm #{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
-                    <%= icon("fa-solid", "bolt-lightning") %>
-                    <span class="font-semibold <%= "#{quiz.has_flashcards? ? "" : "line-through"}" %>"> Flash Session </span>
-                <% end %>
-
-                <%= button_tag(type: "button", id: "flash_btn", data: {
-                    reflex: "click->Flashcard#start_flash_session", id: quiz.id
-                  }, class: "px-2 text-sm m-2 rounded-sm #{quiz.persisted? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
-                    <%= icon("fa-solid", "trash") %>
-                    <span class="font-semibold"> Delete Quiz </span>  <!-- TODO Add functionality for the delete quiz here.  -->
-                <% end %>
-              </div>
-
-              <div class="flex flex-row justify-around md:hidden">
-                <button type="button" class="p-2 m-2 rounded-md <%= "#{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-200"}" %>"> <%= icon("fa-solid", "play") %> </button>
-                <button type="button" class="p-2 m-2 rounded-md <%= "#{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"}" %>"> <%= icon("fa-solid", "bolt-lightning") %> </button> 
-              </div>
-            <% else %>
-              <div class="w-full flex flex-col items-center justify-between">
-                <%= icon("fa-solid", "rotate", class: "animate-spin text-3xl") %>
-                <span class="w-full text-center font-semibold"> Your Quiz is currently being processed. Please check back in a couple minutes. </span>            
-              </div>
+              </span>
             <% end %>
           </div>
-      </div>
+
+          <div class="w-full h-1/3 flex align-middle justify-end mx-5 my-auto">
+              <% if quiz.analyzed? %>
+                <div class="flex flex-row justify-end md:justify-between">
+                  <%= button_tag(type: "button", id: "start_btn", data: {
+                      reflex: "click->Quiz#start_quiz", id: quiz.id
+                    }, class: "md:px-2 p-2 text-sm m-2 rounded-md #{quiz.questions.empty? ? "disabled bg-gray-400" : "bg-green-200"} ") do %>
+                      <%= icon("fa-solid", "play") %>
+                      <span class="hidden md:block font-semibold"> Start Quiz </span>
+                  <% end %>
+
+                  <%= button_tag(type: "button", id: "flash_btn", data: { disabled: !(quiz.has_flashcards?),
+                      reflex: "click->Flashcard#start_flash_session", id: quiz.id
+                    }, class: "md:px-2 p-2 text-sm m-2 rounded-md #{quiz.has_flashcards? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
+                      <%= icon("fa-solid", "bolt-lightning") %>
+                      <span class="hidden md:block font-semibold <%= "#{quiz.has_flashcards? ? "" : "line-through"}" %>"> Flash Session </span>
+                  <% end %>
+
+                  <%= button_tag(type: "button", id: "flash_btn", data: {
+                      reflex: "click->Application#yet_to_implement", id: quiz.id
+                    }, class: "px-2 text-sm m-2 rounded-md #{quiz.persisted? ? "bg-red-200" : "disabled bg-gray-400"} ") do %>
+                      <%= icon("fa-solid", "trash") %>
+                      <span class="hidden md:block font-semibold"> Delete Quiz </span>  <!-- TODO Add functionality for the delete quiz here.  -->
+                  <% end %>
+                </div>
+              <% else %>
+                <div class="w-full flex flex-col items-center justify-end">
+                  <%= icon("fa-solid", "rotate", class: "animate-spin text-3xl") %>
+                  <span class="hidden md:block w-full text-center font-semibold"> Your Quiz is currently being processed. Please check back in a couple minutes. </span>
+                  <span class="md:hidden w-full text-right font-semibold"> Processing... </span>
+                </div>
+              <% end %>
+            </div>
+        </div>
       <% end %>
     <% else %>
-        <div class="w-full m-auto flex justify-center">
-          <%= render(partial: "quizzes/form", locals: {}) %>
+        <div class="md:px-10 md:py-10 flex flex-col justify-around w-full">
+          <span class="text-white text-2xl font-sans2 text-center w-full"> 
+            You do not have any quizzes set up yet. Let's fix that real quick. More details about quizzes here. We leverage OpenAI's GPT3.5 engine to help generate these quizzes.
+          </span>
+          <%= link_to(new_quiz_path, class: "p-2 m-auto rounded-lg bg-flashBlue") do %>
+              <span class=" text-white text-xl"> Get started with your first Quiz </span>
+          <% end %>
         </div>
     <% end %>
     <div class="my-10"></div>

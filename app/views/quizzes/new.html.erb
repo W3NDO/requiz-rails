@@ -1,7 +1,5 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New quiz</h1>
-
-  <%= render "form", quiz: @quiz %>
-
-  <%= link_to 'Back to quizzes', quizzes_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+<div class="bg-gradient-to-l cursor-default from-flashBlue  to-black h-screen w-full overflow-hidden max-h-screen md:grid md:grid-cols-7 md:grid-rows-6">
+    <div id="main_container" class="w-full h-fit mx-auto col-start-2 col-end-7">
+      <%= render "form", quiz: @quiz %>
+    </div>
 </div>
