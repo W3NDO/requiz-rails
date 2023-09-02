@@ -24,6 +24,11 @@
       <% if notice.present? %>
         <%= render(partial: "shared/basic_notification", locals: {message: notice})%>
       <% end %>
+
+      <% if flash[:error].present? %>
+        <%= render(partial: "shared/basic_notification", locals: {is_error: true, message: flash[:error]})%>
+      <% end %>
+
       <div id="notification_container" class="w-full h-full"></div>
       <div id="modal_container" class="z-50 fixed top-auto left-auto border-gray-500 bg-white opacity-100 border-4 rounded-2xl shadow-2xl shadow-gray-500 hidden"></div>
       <%= yield %>

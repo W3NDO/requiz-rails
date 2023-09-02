@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   # resources :questions
   # resources :notes
-  resources :quizzes
+  resources :quizzes, only: [:index, :new, :create, :update]
   
   get '/kshn', to: "kshn#index"
   get 'docs/index'

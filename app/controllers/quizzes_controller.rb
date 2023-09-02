@@ -13,7 +13,7 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/new
   def new
-    @quiz = Quiz.new
+    @quiz = params[:quiz] || Quiz.new
   end
 
   # GET /quizzes/1/edit
@@ -27,10 +27,12 @@ class QuizzesController < ApplicationController
 
     respond_to do |format|
       if @quiz.save
-        format.html { redirect_to quizzes_path }
+        format.html { redirect_to quizzes_path, notice: "Quiz Created Successfully." }
         format.json { render :show, status: :created, location: @quiz }
       else
-        format.html { render :new, status: :unprocessable_entity}
+        flash.now[:error] = "#{@quiz.errors.full_messages.join(', ')}"
+        pp "LOG #{@quiz.errors.full_messages}"
+        format.html { redirect_to new_quiz_path(quiz: @quiz), flash: {:error => "Error: #{@quiz.errors.full_messages.first}"} }
         format.json { render json: @quiz.errors, status: :unprocessable_entity }
       end
     end
