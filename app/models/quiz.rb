@@ -24,7 +24,7 @@ include QuizzesHelper
   end
 
   def has_flashcards?
-    !self.has_flashcards.nil?
+    !(self.flashcards.empty?)
   end
 
   def has_questions?

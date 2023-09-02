@@ -1,7 +1,7 @@
 module ApplicationHelper
   NAVBAR_MENU_OPTIONS = {
     :home => :root_path,
-    :quiz => :quizzes_path
+    :revise => :quizzes_path
   }
 
   NAVBAR_AUTH_OPTIONS = {

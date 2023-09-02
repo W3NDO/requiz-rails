@@ -14,9 +14,6 @@ class QuizReflex < ApplicationReflex
 
   def start_quiz
     # TODO :: add sounds??
-    # cable_ready.add_css_class(selector: "#start_btn", name: "is-disabled")
-    # cable_ready.set_attribute(selector: "#start_btn", name: "disabled", value: true)
-    # cable_ready.remove_css_class(selector: "#start_btn", name: "is-primary")
 
     questions = Quiz.includes(:questions).find(element.dataset[:id]).questions
     question_count = questions.length
@@ -51,9 +48,6 @@ class QuizReflex < ApplicationReflex
     end
     
     if has_next
-      cable_ready.add_css_class(selector: "#start_btn", name: "is-disabled")
-      cable_ready.set_attribute(selector: "#start_btn", name: "disabled", value: true)
-      cable_ready.remove_css_class(selector: "#start_btn", name: "is-primary")
       next_question = questions[next_index]
       next_index += 1
       morph "#main_container", render(partial: "quizzes/question", locals: {
@@ -66,11 +60,10 @@ class QuizReflex < ApplicationReflex
       })
       morph "#counter", "#{correct_answer_count}/#{questions.length}"
     else 
-      cable_ready.add_css_class(selector: "#start_btn", name: "is-primary")
-      cable_ready.remove_attribute(selector: "#start_btn", name: "disabled")
-      cable_ready.remove_css_class(selector: "#start_btn", name: "is-disabled")
       score = ((correct_answer_count.to_f/questions.length.to_f)*100).round(2)
       quiz.update!(score: score) # Update quize with the last score they got
+      
+      show_notification("You scored #{score.to_i}%")
 
       morph "#main_container", render(partial: "quizzes/end_of_quiz", locals: {
         :quiz => question.quiz,
