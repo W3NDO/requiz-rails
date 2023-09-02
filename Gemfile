@@ -91,8 +91,6 @@ gem 'faker'
 
 gem 'solargraph'
 
-gem "httparty", "~> 0.21.0"
-
 gem "ruby-openai", "~> 5.1"
 
 gem "pdf-reader", "~> 2.11"
