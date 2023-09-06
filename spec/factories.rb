@@ -5,4 +5,14 @@ FactoryBot.define do
     password_confirmation {"foobar123"}
     full_name {"Test User"}
   end
+
+  factory :unprocessed_quiz do
+    title { "This quiz will not have been processed" }
+    tag { "quiz, test, unprocessed" }
+    quiz_file { "" }
+  end
+
+  factory :processed_quiz do
+
+  end
 end
