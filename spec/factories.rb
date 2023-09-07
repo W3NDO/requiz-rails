@@ -13,6 +13,8 @@ FactoryBot.define do
   end
 
   factory :processed_quiz do
-
+    title { "This quiz is processed" }
+    tag { "quiz, test, processed" }
+    quiz_file { "" }
   end
 end
