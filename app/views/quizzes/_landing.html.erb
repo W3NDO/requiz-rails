@@ -53,8 +53,9 @@
                       <span class="hidden md:block font-semibold"> Start Quiz </span>
                   <% end %>
 
-                  <%= button_tag(type: "button", id: "flash_btn", data: { disabled: !(quiz.has_flashcards?),
-                      reflex: "click->Flashcard#start_flash_session", id: quiz.id
+                  <%= button_tag(type: "button", id: "flash_btn", data: {
+                      reflex: quiz.has_flashcards? ? "click->Flashcard#start_flash_session" : "click->Application#notify", 
+                      id: quiz.id, message: "There are no flashcards for this quiz yet."
                     }, class: "md:px-2 p-2 text-sm m-2 rounded-md #{quiz.has_flashcards? ? "bg-blue-200" : "disabled bg-gray-400"} ") do %>
                       <%= icon("fa-solid", "bolt-lightning") %>
                       <span class="hidden md:block font-semibold <%= "#{quiz.has_flashcards? ? "" : "line-through"}" %>"> Flash Session </span>

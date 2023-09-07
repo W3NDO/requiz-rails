@@ -30,6 +30,10 @@ class ApplicationReflex < StimulusReflex::Reflex
     morph "#notification_container", render(partial: "shared/basic_notification", locals: {message: message, is_error: is_error}) 
   end
 
+  def notify
+    show_notification(element.dataset[:message], is_error= (element.dataset[:is_error] || false) )
+  end
+
   def show_modal(partial_path, sub_locals)
     cable_ready.remove_css_class(selector: "#modal_container", name: "hidden",  select_all: true ) 
     # sub_locals = JSON.parse(element.dataset["sub_locals"])
