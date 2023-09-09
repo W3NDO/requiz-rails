@@ -18,7 +18,7 @@ module Stripe
       end
       # Ensure we persist the customer on our end.
       BillingCustomer.create!({
-        user: user,
+        user_id: user.id,
         stripeid: stripe_customer.id,
         default_source: stripe_customer.default_source,
       })
