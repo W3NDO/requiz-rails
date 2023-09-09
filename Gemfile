@@ -96,3 +96,5 @@ gem "ruby-openai", "~> 5.1"
 gem "pdf-reader", "~> 2.11"
 
 gem "activesupport", ">= 7.0.7.1"
+
+gem "stripe", "~> 9.2"
