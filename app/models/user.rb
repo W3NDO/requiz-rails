@@ -7,9 +7,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :password, length: {minimum: 6}
+  # validates :password, length: {minimum: 6}
   has_many :topics
   has_many :quizzes
+
+  enum role: {admin: 0, student: 1}
 
   def has_quizzes?
     return !(self.quizzes.empty?)
