@@ -10,6 +10,7 @@ class User < ApplicationRecord
   # validates :password, length: {minimum: 6}
   has_many :topics
   has_many :quizzes
+  has_many :billing_customers
 
   enum role: {admin: 0, student: 1}
 

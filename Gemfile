@@ -98,3 +98,5 @@ gem "pdf-reader", "~> 2.11"
 gem "activesupport", ">= 7.0.7.1"
 
 gem "stripe", "~> 9.2"
+
+gem "pry-rails", "~> 0.3.9", :group => :development
