@@ -1,14 +1,15 @@
 require 'openai'
 class ScheduleQuizFileProcessingJob < ApplicationJob
-before_perform :set_client
+# before_perform :set_client
 
 include QuizzesHelper
   queue_as :urgent
   QUESTIONS_PER_100_WORDS = 2
   MAXIMUM_TOKEN_LENGTH = 3500
-
+  
   def perform(quiz)
     # Do something later
+    @client = OpenAI::Client.new
     is_pdf = quiz.quiz_file.blob.filename.extension_with_delimiter == ".pdf"
     quiz.quiz_file.attachment.open do |file|
       text = get_text(file, is_pdf)
