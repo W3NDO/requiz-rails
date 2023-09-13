@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_122552) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_13_141423) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -128,6 +128,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_122552) do
     t.boolean "has_flashcards"
     t.float "score"
     t.string "request_id"
+    t.string "questions_type", default: [], array: true
   end
 
   create_table "subtopics", force: :cascade do |t|
