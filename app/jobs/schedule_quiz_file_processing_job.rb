@@ -1,4 +1,5 @@
 require 'openai'
+require_relative '../services/requiz_openai/openai_service'
 class ScheduleQuizFileProcessingJob < ApplicationJob
 # before_perform :set_client
 
@@ -10,11 +11,11 @@ include QuizzesHelper
   def perform(quiz)
     # Do something later
     service = RequizOpenai::OpenaiService.new
-    is_pdf = quiz.quiz_file.blob.filename.extension_with_delimiter == ".pdf"
+    is_pdf = quiz.quiz_file.blob.filename.extension_with_delimiter == '.pdf'
     quiz.quiz_file.attachment.open do |file|
       text = get_text(file, is_pdf)
       question_type = quiz.questions_type.map{ |q| q.to_sym }
-      response = service.make_request(text, question_type )
+      response = service.make_request(text, question_type)
       devputs response
   
       if response
